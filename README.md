@@ -27,6 +27,9 @@ By default, two plugins provided
 - google_translate
 - libre_translate
 
+Please, post your additional plugins here:
+https://github.com/janvarev/OneRingTranslator/issues/1
+
 ## Plugin support
 
 Plugins supported throw [Jaa.py](https://github.com/janvarev/jaapy) - minimalistic one-file plugin engine.
