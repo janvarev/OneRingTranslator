@@ -95,7 +95,30 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
 
     return {"result": res}
 
+@app.get(
+    "/translator_plugin_info",
+)
+async def translator_plugin_info(api_key:str = ""):
+    """
+       Return list of available translator plugins
 
+       :param int api_key: api key for access (if service setup in security mode with api keys)
+
+       :return: dict with info
+       """
+    if len(core.api_keys_allowed) > 0: # there are some api keys
+        if api_key == "":
+            return {"error": "API key required"}
+        if not (api_key in core.api_keys_allowed):
+            return {"error": "No valid API key provided"}
+
+    full_list = list(core.translators.keys())
+    inited_list = core.inited_translator_engines
+    return {"result": {
+        "default": core.default_translator,
+        "all_translator": full_list,
+        "inited_translator": inited_list
+    }}
 
 if __name__ == "__main__":
     #multiprocessing.freeze_support()
