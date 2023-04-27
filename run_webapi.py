@@ -120,6 +120,21 @@ async def translator_plugin_info(api_key:str = ""):
         "inited_translator": inited_list
     }}
 
+@app.get(
+    "/whois",
+)
+async def whois():
+    """
+       Return whois service info
+
+       :return: dict with info
+       """
+    from oneringcore import version
+    return {"result": {
+        "service": "OneRingTranslator",
+        "version": version,
+    }}
+
 if __name__ == "__main__":
     #multiprocessing.freeze_support()
     print("Running OneRingTranslator server v{0}...".format(version))
