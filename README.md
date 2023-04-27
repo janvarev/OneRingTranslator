@@ -4,7 +4,7 @@ Simple WEB API REST service for translation.
 
 Features:
 - **Plugin support**. If you misses some translation engine, you can add it yourself! 
-- **Full offline translation (if needed).** You can setup your own offlie https://github.com/LibreTranslate/LibreTranslate service and target this service to use it as endpoint.
+- **Full offline translation (optionally).** You can setup your own offlie https://github.com/LibreTranslate/LibreTranslate service and target this service to use it as endpoint.
 - **Ready to use**. By default use Google Translate service, and ready to use.
 - Simple REST interface throw FastApi and openapi.json interface. After install go to `http://127.0.0.1:4990/docs` to see examples.
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service. 
