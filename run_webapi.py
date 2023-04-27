@@ -48,13 +48,13 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
 
        :param str to_lang: to language (2 symbols, like "en")
 
-       :param str translator_plugin: to use. If blank, default will be used
+       :param str translator_plugin: to use. If blank, default will be used. If not inited plugin will call, core try to init plugin
 
        :param str add_params: additional params for translation (depends on plugin)
 
        :param int api_key: api key for access (if service setup in security mode with api keys)
 
-       :return: text
+       :return: dict (result: text)
        """
 
 
