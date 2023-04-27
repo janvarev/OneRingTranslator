@@ -24,8 +24,8 @@ Docs and test run: `http://127.0.0.1:4990/docs`
 ## Plugins
 
 By default, two plugins provided
-- google_translate
-- libre_translate
+- **google_translate** (no options)
+- **libre_translate** (custom_url option. If you want, setup your https://github.com/LibreTranslate/LibreTranslate server locally, and target custom_url to gain translation from your server)
 
 Please, post your additional plugins here:
 https://github.com/janvarev/OneRingTranslator/issues/1
