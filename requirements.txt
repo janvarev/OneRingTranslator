@@ -1,0 +1,10 @@
+# Translation
+deep_translator
+
+# Web server
+uvicorn
+uvicorn[standard]
+fastapi
+starlette
+
+termcolor
