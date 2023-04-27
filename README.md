@@ -9,10 +9,14 @@ Features:
 - Simple REST interface throw FastApi and openapi.json interface. After install go to `http://127.0.0.1:4990/docs` to see examples.
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service. 
 
+## One-click installer for Windows
+
+Go here: https://github.com/janvarev/OneRingTranslator-installer and follow instructions.
+
 ## Install and run
 
 To run: 
-1. Install requirements from requirements.txt
+1. Install requirements ```pip install -r requirements.txt```
 2. Run run_webapi.py.
 
 Docs and test run: `http://127.0.0.1:4990/docs`
