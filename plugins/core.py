@@ -7,7 +7,7 @@ from oneringcore import OneRingCore
 def start(core:OneRingCore):
     manifest = {
         "name": "Core plugin",
-        "version": "1.0",
+        "version": "1.1",
 
         "default_options": {
             "default_translate_plugin": "google_translate", # default translation engine
@@ -15,7 +15,8 @@ def start(core:OneRingCore):
             "default_to_lang": "en", # default to language
             "api_keys_allowed": [], # set of API keys. If empty - no API key required.
             "debug_input_output": False, # allow debug print input and output in console
-            "allow_multithread": True # allow multithread run of translation engine
+            "allow_multithread": True, # allow multithread run of translation engine
+            "user_lang": "", # standart user language. Replaces "user" in to_lang or from_lang API params
         },
 
     }
@@ -32,5 +33,7 @@ def start_with_options(core:OneRingCore, manifest:dict):
 
     core.is_multithread = options["allow_multithread"]
     core.is_debug_input_output = options["debug_input_output"]
+
+    core.user_lang = options["user_lang"]
 
     return manifest

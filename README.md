@@ -51,6 +51,21 @@ Located in `options/core.json` after first run.
     "default_to_lang": "en", # default to language
     "api_keys_allowed": [], # set of API keys. If empty - no API key required.
     "debug_input_output": False, # allow debug print input and output in console
-    "allow_multithread": True # allow multithread run of translation engine 
+    "allow_multithread": True, # allow multithread run of translation engine
+    "user_lang": "", # standart user language. Replaces "user" in to_lang or from_lang API params 
 },
 ```
+
+## API example usage
+
+Translate from en to fr
+```
+http://127.0.0.1:4990/translate?text=Hi%21&from_lang=en&to_lang=fr
+```
+
+Translate from en to user language (user language defines in plugins/core.json)
+```
+http://127.0.0.1:4990/translate?text=Hi%21&from_lang=en&to_lang=user
+```
+
+

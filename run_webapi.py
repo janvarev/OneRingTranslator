@@ -44,9 +44,9 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
 
        :param str text: text to translate
 
-       :param str from_lang: from language (2 symbols, like "en")
+       :param str from_lang: from language (2 symbols, like "en"). May be "user" (will be replaced to "user_lang" from options)
 
-       :param str to_lang: to language (2 symbols, like "en")
+       :param str to_lang: to language (2 symbols, like "en"). May be "user" (will be replaced to "user_lang" from options)
 
        :param str translator_plugin: to use. If blank, default will be used. If not inited plugin will call, core try to init plugin
 
@@ -83,6 +83,17 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
     if to_lang == "":
         to_lang = core.default_to_lang
 
+    if from_lang == "user":
+        from_lang = core.user_lang
+        if core.user_lang == "":
+            return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
+
+    if to_lang == "user":
+        to_lang = core.user_lang
+        if core.user_lang == "":
+            return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
+
+
     if core.is_multithread:
         #print("Multithread")
         res = await asyncio.to_thread(core.translators[translator_plugin][1], core, text, from_lang, to_lang, add_params)
@@ -117,7 +128,8 @@ async def translator_plugin_info(api_key:str = ""):
     return {"result": {
         "default": core.default_translator,
         "all_translator": full_list,
-        "inited_translator": inited_list
+        "inited_translator": inited_list,
+        "user_lang": core.user_lang
     }}
 
 @app.get(

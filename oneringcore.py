@@ -2,7 +2,7 @@ from jaa import JaaCore
 
 from termcolor import colored, cprint
 
-version = "1.0"
+version = "1.1"
 
 class OneRingCore(JaaCore):
     def __init__(self):
@@ -19,6 +19,8 @@ class OneRingCore(JaaCore):
 
         self.is_debug_input_output:bool = False
         self.is_multithread:bool = True
+
+        self.user_lang:str = ""
 
         self.inited_translator_engines = []
 
