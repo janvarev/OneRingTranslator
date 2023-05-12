@@ -1,5 +1,5 @@
 # Translation
-deep_translator
+deep-translator
 
 # Web server
 uvicorn
