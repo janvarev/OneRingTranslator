@@ -9,6 +9,11 @@ Features:
 - Simple REST interface throw FastApi and openapi.json interface. After install go to `http://127.0.0.1:4990/docs` to see examples.
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service. 
 
+Supported translators by plugins for now:
+- Google Translate (online)
+- Libre Translate (online or offline)
+- FB NLLB neuronet (offline)
+
 ## One-click installer for Windows
 
 Go here: https://github.com/janvarev/OneRingTranslator-installer and follow instructions.
@@ -23,9 +28,35 @@ Docs and test run: `http://127.0.0.1:4990/docs`
 
 ## Plugins
 
-By default, two plugins provided
-- **google_translate** (no options)
-- **libre_translate** (custom_url option. If you want, setup your https://github.com/LibreTranslate/LibreTranslate server locally, and target custom_url to gain translation from your server)
+### google_translate
+
+Used by default. 
+
+Options: no
+
+Translate with Google Translate.
+
+### libre_translate
+
+Libre Translate service
+
+Options:
+- `custom_url` If you want, setup your https://github.com/LibreTranslate/LibreTranslate server locally, and target custom_url to gain translation from your server)
+
+### fb_nllb_translate
+
+Translate by neuronet from https://github.com/facebookresearch/fairseq/tree/nllb
+
+Options
+- `model` define model to use 
+
+Details:
+- You need to install transfomers and torch to use this.
+- This will use original BCP 47 Code to target language: https://github.com/facebookresearch/flores/blob/main/toxicity/README.md
+Plugin try to recognize 2-language-codes to transform them to BCP 47 Code, but better will be pass them manually (by from_lang, to_lang params)  
+
+
+### More plugins
 
 Please, post your additional plugins here:
 https://github.com/janvarev/OneRingTranslator/issues/1

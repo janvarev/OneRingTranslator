@@ -2,7 +2,7 @@ from jaa import JaaCore
 
 from termcolor import colored, cprint
 
-version = "1.1.0"
+version = "1.2.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):
