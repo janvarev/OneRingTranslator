@@ -10,14 +10,15 @@ Features:
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service. 
 
 Supported translators by plugins for now:
-- Google Translate (online)
+- Google Translate (online, free)
+- Deepl Translate (online, require API key)
 - Libre Translate (online or offline)
 - FB NLLB neuronet (offline)
 - KoboldAPI endpoint (offline mostly due to target localhost)
   - KoboldAPI is a REST interface for lots of LLM servers (like [koboldcpp](https://github.com/LostRuins/koboldcpp/releases), [text-generation-webui](https://github.com/oobabooga/text-generation-webui))
   - If you load some LLM model inside this LLM server, you can translate texts using them!
   - (Now plugin uses Alpaca template to set translation task. Change it if you want)
-- OpenAI Chat interface (ChatGPT). 
+- OpenAI Chat interface (ChatGPT), (online or offline emulation)
   - API key required, if you want to connect to OpenAI servers
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - No Translate (offline) - dummy translator to compare with
@@ -49,6 +50,7 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline. 
 | fb_nllb_translate nllb-200-distilled-600M  |      51.92 |      52.73 |      41.38 |      31.41 |
 | fb_nllb_translate nllb-200-distilled-1.3B  |      56.81 |       55   |      46.03 |      33.98 |
 | google_translate                           |      58.08 |      59.99 |      47.7  |      37.98 |
+| deepl_translate                            |      57.67 |      59.93 |      50.09 |      38.91 |
 | openai_chat gpt-3.5-turbo (aka ChatGPT)    |      ----- |      ----- |      41.49 |      30.9  |
 | koboldapi_translate (alpaca7B-4bit)        |      43.51 |      30.54 |      32    |      14.19 |
 | koboldapi_translate (alpaca30B-4bit)       |      ----- |      ----- |      ----- |      24.0  |
