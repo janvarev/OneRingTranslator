@@ -71,23 +71,23 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
 
 
     params["prompt"] = prompt
-    print(params)
+    #print(params)
 
     import requests
     url = f"{core.plugin_options(modname).get('custom_url')}api/v1/generate"
-    print(url)
+    #print(url)
     response = requests.post(url, json=params)
 
     if response.status_code != 200:
         return "ERROR in call KoboldAPI url: status code {0}".format(response.status_code)
 
-    print(response)
+    #print(response)
 
     reply:str = response.json()["results"][0]['text']
     reply = reply.strip()
 
     end = time()
-    print("Duration: {0}".format(end - start))
+    #print("Duration: {0}".format(end - start))
 
     for stop_string in custom_stopping_strings:
         if stop_string in reply:

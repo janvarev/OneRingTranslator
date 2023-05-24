@@ -6,10 +6,11 @@ from oneringcore import OneRingCore
 # ----------------- key settings params ----------------
 
 # due to settins in FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
-BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus"
-BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # needed to pass to plugins
-BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
-#BLEU_PLUGINS = "no_translate"
+BLEU_PAIRS = "rus->eng,eng->rus"
+BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # needed to pass to plugins
+#BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
+BLEU_PLUGINS = "no_translate,koboldapi_translate"
+#BLEU_PLUGINS = "no_translate,google_translate"
 BLEU_NUM_PHRASES = 100
 BLEU_START_PHRASE = 150
 
@@ -49,6 +50,8 @@ def translate(text:str, from_lang:str = "", to_lang:str = "", translator_plugin:
     return res
 
 if __name__ == "__main__":
+    from tqdm import trange
+    import tqdm
     #multiprocessing.freeze_support()
     core = OneRingCore()
     core.init_with_plugins()
@@ -76,7 +79,10 @@ if __name__ == "__main__":
             #print(f"--------------\n{plugin} plugin\n--------------\n")
 
             bleu_sum = 0.0
-            for i in range(len(from_lines)):
+            bleu_cnt = 0
+            print(f"---- Estimating {plugin} for pair {pair}....")
+            tqdm_bar = trange(len(from_lines))
+            for i in tqdm_bar: # tqdm range
                 text_need_translate = from_lines[i]["row"]["sentence"]
                 text_reference = to_lines[i]["row"]["sentence"]
                 text_candidate = translate(text_need_translate,from_lang_let2,to_lang_let2, plugin)
@@ -85,6 +91,9 @@ if __name__ == "__main__":
                 #print(f"Original: {text_need_translate}\nTranslation: {text_candidate}\nReference: {text_reference}\nScore: {score}\n\n")
 
                 bleu_sum += score
+                bleu_cnt += 1
+
+                tqdm_bar.set_description(f"'{plugin}' on '{pair}' pair average BLEU score: {'{:8.2f}'.format(bleu_sum/bleu_cnt)}")
 
             bleu_score = bleu_sum / len(from_lines)
             print(f"****** Average BLEU score for '{plugin}' on '{pair.upper()}' pair ({len(to_lines)} samples): {bleu_score}")
