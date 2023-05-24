@@ -17,6 +17,9 @@ Supported translators by plugins for now:
   - KoboldAPI is a REST interface for lots of LLM servers (like [koboldcpp](https://github.com/LostRuins/koboldcpp/releases), [text-generation-webui](https://github.com/oobabooga/text-generation-webui))
   - If you load some LLM model inside this LLM server, you can translate texts using them!
   - (Now plugin uses Alpaca template to set translation task. Change it if you want)
+- OpenAI Chat interface (ChatGPT). 
+  - API key required, if you want to connect to OpenAI servers
+  - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - No Translate (offline) - dummy translator to compare with
 
 ## One-click installer for Windows
@@ -37,7 +40,7 @@ BLEU (bilingual evaluation understudy) is an automatic algorithm for evaluating 
 
 Use this results just for reference.
 
-Table with BLEU scores (higher is better, no_translate can be used as baseline):
+Table with BLEU scores (higher is better, no_translate can be used as baseline. Average on 100 examples from FLORES, offset = 150):
 
 |                                            |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
 |--------------------------------------------|------------|------------|------------|------------|
@@ -46,6 +49,9 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline):
 | fb_nllb_translate nllb-200-distilled-600M  |      51.92 |      52.73 |      41.38 |      31.41 |
 | fb_nllb_translate nllb-200-distilled-1.3B  |      56.81 |       55   |      46.03 |      33.98 |
 | google_translate                           |      58.08 |      59.99 |      47.7  |      37.98 |
+| openai_chat gpt-3.5-turbo (aka ChatGPT)    |      ----- |      ----- |      41.49 |      30.9  |
+| koboldapi_translate (alpaca7B-4bit)        |      ----- |      ----- |      32    |      14.19 |
+| koboldapi_translate (alpaca30B-4bit)       |      ----- |      ----- |      ----- |      24.0  |
 
 Average results with different LLMs:
 
@@ -55,6 +61,7 @@ Average results with different LLMs:
 | libre_translate                            |      32.43 |      30.99 |
 | koboldapi_translate (alpaca7B-4bit)        |      32    |      14.19 |
 | koboldapi_translate (alpaca30B-4bit)       |      -     |      24.0  |
+| openai_chat gpt-3.5-turbo (aka ChatGPT)    |      41.49 |      30.9  |
 
 'koboldapi_translate' on 'eng->rus' pair average BLEU score:     7.00: 80/100
 on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for input prompt needed
@@ -82,6 +89,7 @@ Translate by neuronet from https://github.com/facebookresearch/fairseq/tree/nllb
 
 Options
 - `model` define model to use 
+- `cuda"`: -1, # -1 if you want run on CPU, 0 - if on CUDA
 
 Details:
 - You need to install transfomers and torch to use this.
@@ -93,8 +101,6 @@ Plugin try to recognize 2-language-codes to transform them to BCP 47 Code, but b
 Dummy plugins that just return original text. 
 
 Options: no
-
-Translate with Google Translate.
 
 ### koboldapi_translate
 
@@ -109,6 +115,19 @@ If you load some LLM model inside this LLM server, you can translate texts using
 
 (Now plugin uses Alpaca template to set translation task. Change it if you want)
 
+### openai_chat
+
+Translate by OpenAI Chat interface
+
+Default options:
+- "apiKey": "", #
+- "apiBaseUrl": "",  #
+- "system": "You are a professional translator."
+
+Description:
+- "apiKey": "API-key OpenAI", #
+- "apiBaseUrl": "URL for OpenAI (allow OpenAI emulation servers)",  #
+- "system": "System input string."
 
 ### More plugins
 

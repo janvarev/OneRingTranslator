@@ -1,5 +1,6 @@
 # Translation
 deep-translator
+openai
 
 # Web server
 uvicorn

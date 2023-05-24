@@ -6,12 +6,12 @@ from oneringcore import OneRingCore
 # ----------------- key settings params ----------------
 
 # due to settins in FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
-BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus"
-BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # needed to pass to plugins
-#BLEU_PAIRS = "eng->rus"
-#BLEU_PAIRS_2LETTERS = "en->ru" # needed to pass to plugins
+#BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus"
+#BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # needed to pass to plugins
+BLEU_PAIRS = "rus->eng,eng->rus"
+BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # needed to pass to plugins
 #BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
-BLEU_PLUGINS = "no_translate,fb_nllb_translate"
+BLEU_PLUGINS = "no_translate,openai_chat"
 #BLEU_PLUGINS = "no_translate,google_translate"
 BLEU_NUM_PHRASES = 100
 BLEU_START_PHRASE = 150
@@ -96,6 +96,10 @@ if __name__ == "__main__":
                 bleu_cnt += 1
 
                 tqdm_bar.set_description(f"'{plugin}' on '{pair}' pair average BLEU score: {'{:8.2f}'.format(bleu_sum*100/bleu_cnt)}")
+
+                # if plugin == "openai_chat":
+                #     import time
+                #     time.sleep(20)
 
             bleu_score = bleu_sum / len(from_lines)
             print(f"****** Average BLEU score for '{plugin}' on '{pair.upper()}' pair ({len(to_lines)} samples): {bleu_score}")
