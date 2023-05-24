@@ -50,7 +50,7 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline. 
 | fb_nllb_translate nllb-200-distilled-1.3B  |      56.81 |       55   |      46.03 |      33.98 |
 | google_translate                           |      58.08 |      59.99 |      47.7  |      37.98 |
 | openai_chat gpt-3.5-turbo (aka ChatGPT)    |      ----- |      ----- |      41.49 |      30.9  |
-| koboldapi_translate (alpaca7B-4bit)        |      ----- |      ----- |      32    |      14.19 |
+| koboldapi_translate (alpaca7B-4bit)        |      43.51 |      30.54 |      32    |      14.19 |
 | koboldapi_translate (alpaca30B-4bit)       |      ----- |      ----- |      ----- |      24.0  |
 
 Average results with different LLMs:

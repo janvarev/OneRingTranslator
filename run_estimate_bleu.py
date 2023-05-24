@@ -8,10 +8,10 @@ from oneringcore import OneRingCore
 # due to settins in FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
 #BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus"
 #BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # needed to pass to plugins
-BLEU_PAIRS = "rus->eng,eng->rus"
-BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # needed to pass to plugins
+BLEU_PAIRS = "fra->eng,eng->fra"
+BLEU_PAIRS_2LETTERS = "fr->en,en->fr" # needed to pass to plugins
 #BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
-BLEU_PLUGINS = "no_translate,openai_chat"
+BLEU_PLUGINS = "no_translate,koboldapi_translate"
 #BLEU_PLUGINS = "no_translate,google_translate"
 BLEU_NUM_PHRASES = 100
 BLEU_START_PHRASE = 150
