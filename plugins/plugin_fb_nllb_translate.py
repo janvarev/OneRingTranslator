@@ -229,12 +229,13 @@ for k in l:
 #print(langlist)
 
 
-
+cuda_opt = -1
+to_device = "cpu"
 # start function
 def start(core:OneRingCore):
     manifest = { # plugin settings
         "name": "NLLB Translate", # name
-        "version": "1.0", # version
+        "version": "2.0", # version
 
         "translate": {
             "fb_nllb_translate": (init,translate) # 1 function - init, 2 - translate
@@ -242,18 +243,28 @@ def start(core:OneRingCore):
 
         "default_options": {
             "model": "facebook/nllb-200-distilled-600M",  # key model
+            "cuda": -1, # -1 if you want run on CPU, 0 - if on CUDA
         },
     }
     return manifest
 
 def start_with_options(core:OneRingCore, manifest:dict):
+    global cuda_opt
+    global to_device
+    cuda_opt = manifest["options"].get("cuda")
+    if cuda_opt == -1:
+        to_device = "cpu"
+    else:
+        to_device = "cuda:{0}".format(cuda_opt)
     pass
 
 def init(core:OneRingCore):
     from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
     global model
-    model = AutoModelForSeq2SeqLM.from_pretrained(core.plugin_options(modname).get("model"))
+
+    #print(to_device)
+    model = AutoModelForSeq2SeqLM.from_pretrained(core.plugin_options(modname).get("model")).to(to_device)
 
 
     pass
@@ -283,7 +294,7 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     #     tokenizers[to_lang_tr] = AutoTokenizer.from_pretrained(core.plugin_options(modname).get("model"), src_lang=to_lang_tr)
 
     tokenizer_from = tokenizers.get(from_lang_tr)
-    inputs = tokenizer_from(text, return_tensors="pt")
+    inputs = tokenizer_from(text, return_tensors="pt").to(to_device)
 
     translated_tokens = model.generate(
                             **inputs, forced_bos_token_id=tokenizer_from.lang_code_to_id[to_lang_tr], max_length=int(len(text)*5)

@@ -43,8 +43,21 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline):
 |--------------------------------------------|------------|------------|------------|------------|
 | no_translate                               |       3.98 |       3.9  |       0.57 |       0.56 |
 | libre_translate                            |      47.66 |      49.62 |      32.43 |      30.99 |
-| fb_nllb_translate                          |      51.92 |      52.73 |      41.38 |      31.41 |
+| fb_nllb_translate nllb-200-distilled-600M  |      51.92 |      52.73 |      41.38 |      31.41 |
+| fb_nllb_translate nllb-200-distilled-1.3B  |      56.81 |       55   |      46.03 |      33.98 |
 | google_translate                           |      58.08 |      59.99 |      47.7  |      37.98 |
+
+Average results with different LLMs:
+
+|                                            |   rus->eng |   eng->rus |
+|--------------------------------------------|------------|------------|
+| no_translate                               |       0.57 |       0.56 |
+| libre_translate                            |      32.43 |      30.99 |
+| koboldapi_translate (alpaca7B-4bit)        |      32    |      14.19 |
+| koboldapi_translate (alpaca30B-4bit)       |      -     |      24.0  |
+
+'koboldapi_translate' on 'eng->rus' pair average BLEU score:     7.00: 80/100
+on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for input prompt needed
 
 ## Plugins
 

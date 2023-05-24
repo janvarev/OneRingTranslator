@@ -32,8 +32,8 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     import json
     custom_stopping_strings = ["\n\n","\n### "]
     params = {
-        'max_new_tokens': len(text)*2,
-        'max_length': len(text)*2,
+        'max_new_tokens': int(len(text)*1.5),
+        'max_length': int(len(text)*1.5),
         'do_sample': True,
         'temperature': 0.7,
         'top_p': 0.2,
@@ -50,6 +50,7 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
         'seed': -1,
         'add_bos_token': True,
         'custom_stopping_strings': custom_stopping_strings,
+        'stop_sequence': custom_stopping_strings,
         'truncation_length': 2048,
         'ban_eos_token': False,
     }
