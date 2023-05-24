@@ -28,7 +28,8 @@ def init(core:OneRingCore):
     pass
 
 def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", add_params:str = ""):
-    # просто выводим текст в консоль
     from deep_translator import LibreTranslator
-    res = LibreTranslator(source=from_lang, target=to_lang, custom_url=core.plugin_options(modname).get("custom_url")).translate(text)
+    custom_url = core.plugin_options(modname).get("custom_url")
+    #print(custom_url)
+    res = LibreTranslator(source=from_lang, target=to_lang, custom_url=custom_url).translate(text)
     return res

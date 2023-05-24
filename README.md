@@ -13,6 +13,11 @@ Supported translators by plugins for now:
 - Google Translate (online)
 - Libre Translate (online or offline)
 - FB NLLB neuronet (offline)
+- KoboldAPI endpoint (offline mostly due to target localhost)
+  - KoboldAPI is a REST interface for lots of LLM servers (like [koboldcpp](https://github.com/LostRuins/koboldcpp/releases), [text-generation-webui](https://github.com/oobabooga/text-generation-webui))
+  - If you load some LLM model inside this LLM server, you can translate texts using them!
+  - (Now plugin uses Alpaca template to set translation task. Change it if you want)
+- No Translate (offline) - dummy translator to compare with
 
 ## One-click installer for Windows
 
@@ -25,6 +30,21 @@ To run:
 2. Run run_webapi.py.
 
 Docs and test run: `http://127.0.0.1:4990/docs`
+
+## Average BLEU results for translation quality
+
+BLEU (bilingual evaluation understudy) is an automatic algorithm for evaluating the quality of text which has been machine-translated from one natural language to another.
+
+Use this results just for reference.
+
+Table with BLEU scores (higher is better, no_translate can be used as baseline):
+
+|                                            |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
+|--------------------------------------------|------------|------------|------------|------------|
+| no_translate                               |       3.98 |       3.9  |       0.57 |       0.56 |
+| libre_translate                            |      47.66 |      49.62 |      32.43 |      30.99 |
+| fb_nllb_translate                          |      51.92 |      52.73 |      41.38 |      31.41 |
+| google_translate                           |      58.08 |      59.99 |      47.7  |      37.98 |
 
 ## Plugins
 
@@ -54,6 +74,27 @@ Details:
 - You need to install transfomers and torch to use this.
 - This will use original BCP 47 Code to target language: https://github.com/facebookresearch/flores/blob/main/toxicity/README.md
 Plugin try to recognize 2-language-codes to transform them to BCP 47 Code, but better will be pass them manually (by from_lang, to_lang params)  
+
+### no_translate
+
+Dummy plugins that just return original text. 
+
+Options: no
+
+Translate with Google Translate.
+
+### koboldapi_translate
+
+Translate by sending prompt to LLM throw KoboldAPI (REST) interface. 
+
+Options:
+- `custom_url` Kobold API endpoint
+
+KoboldAPI is a REST interface for lots of LLM servers (like [koboldcpp](https://github.com/LostRuins/koboldcpp/releases), [text-generation-webui](https://github.com/oobabooga/text-generation-webui))
+
+If you load some LLM model inside this LLM server, you can translate texts using them!
+
+(Now plugin uses Alpaca template to set translation task. Change it if you want)
 
 
 ### More plugins
@@ -126,3 +167,18 @@ else:
     else:
         res = f"{response_orig.status_code} error"
 ```
+
+## Automatic BLEU estimation
+
+There are builded package to run BLEU estimation of plugin translation on different languages.
+
+There are pretty simple estimation based on FLORES dataset: https://huggingface.co/datasets/gsarti/flores_101/viewer
+
+To estimate:
+1. install requirements-bleu.txt
+2. setup params in run_estimate_bleu.py (at beginning of file)
+3. run run_estimate_bleu.py
+
+RECOMMENDATIONS: 
+1. debug separate plugins first!
+2. To debug, use less BLEU_NUM_PHRASES.
