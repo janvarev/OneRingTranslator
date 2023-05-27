@@ -4,17 +4,18 @@ from nltk.translate.bleu_score import sentence_bleu
 from oneringcore import OneRingCore
 
 # ----------------- key settings params ----------------
+BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
+BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-# due to settins in FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
-BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus"
-BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # needed to pass to plugins
 #BLEU_PAIRS = "fra->eng,eng->fra"
 #BLEU_PAIRS_2LETTERS = "fr->en,en->fr" # needed to pass to plugins
 #BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
-BLEU_PLUGINS = "no_translate,google_translate"
-#BLEU_PLUGINS = "no_translate,google_translate"
-BLEU_NUM_PHRASES = 100
-BLEU_START_PHRASE = 150
+
+BLEU_PLUGINS = "no_translate,fb_nllb_ctranslate2" # plugins to estimate
+#BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
+
+BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
+BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
 
 core:OneRingCore = None
 
@@ -107,10 +108,10 @@ if __name__ == "__main__":
             table_bleu[k][j+1] = "{:8.2f}".format(bleu_score*100)
 
     from tabulate import tabulate
-    res_print_table = tabulate(table_bleu,headers=[" "*40]+pairs_ar,tablefmt="github")
+    res_print_table = tabulate(table_bleu,headers=[" "*60]+pairs_ar,tablefmt="github")
 
-    print("*"*40)
+    print("*" * 60)
     print("BLEU scores")
-    print("*" * 40)
+    print("*" * 60)
     print(res_print_table)
 
