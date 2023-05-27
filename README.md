@@ -43,17 +43,20 @@ Use this results just for reference.
 
 Table with BLEU scores (higher is better, no_translate can be used as baseline. Average on 100 examples from FLORES, offset = 150):
 
-|                                            |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
-|--------------------------------------------|------------|------------|------------|------------|
-| no_translate                               |       3.98 |       3.9  |       0.57 |       0.56 |
-| libre_translate                            |      47.66 |      49.62 |      32.43 |      30.99 |
-| fb_nllb_translate nllb-200-distilled-600M  |      51.92 |      52.73 |      41.38 |      31.41 |
-| fb_nllb_translate nllb-200-distilled-1.3B  |      56.81 |       55   |      46.03 |      33.98 |
-| google_translate                           |      58.08 |      59.99 |      47.7  |      37.98 |
-| deepl_translate                            |      57.67 |      59.93 |      50.09 |      38.91 |
-| openai_chat gpt-3.5-turbo (aka ChatGPT)    |      ----- |      ----- |      41.49 |      30.9  |
-| koboldapi_translate (alpaca7B-4bit)        |      43.51 |      30.54 |      32    |      14.19 |
-| koboldapi_translate (alpaca30B-4bit)       |      ----- |      ----- |      ----- |      24.0  |
+|                                           |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
+|-------------------------------------------|------------|------------|------------|------------|
+| no_translate                              |       3.98 |       3.9  |       0.57 |       0.56 |
+| libre_translate                           |      47.66 |      49.62 |      32.43 |      30.99 |
+| fb_nllb_translate nllb-200-distilled-600M |      51.92 |      52.73 |      41.38 |      31.41 |
+| fb_nllb_translate nllb-200-distilled-1.3B |      56.81 |       55   |      46.03 |      33.98 |
+| fb_nllb_ctranslate2 nllb-3.3b-fl16*       |      54.87 |      56.73 |      48.45 |      36.85 |
+| google_translate                          |      58.08 |      59.99 |      47.7  |      37.98 |
+| deepl_translate                           |      57.67 |      59.93 |      50.09 |      38.91 |
+| openai_chat gpt-3.5-turbo (aka ChatGPT)   |      ----- |      ----- |      41.49 |      30.9  |
+| koboldapi_translate (alpaca7B-4bit)       |      43.51 |      30.54 |      32    |      14.19 |
+| koboldapi_translate (alpaca30B-4bit)      |      ----- |      ----- |      ----- |      24.0  |
+
+\* tested on https://huggingface.co/JustFrederik/nllb-200-3.3B-ct2-float16
 
 Average results with different LLMs:
 
