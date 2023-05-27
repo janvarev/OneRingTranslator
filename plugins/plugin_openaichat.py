@@ -29,13 +29,13 @@ class ChatApp:
             self.save()
             return "(saved)"
         self.messages.append({"role": "user", "content": message})
-        #print(self.messages)
+        print(self.messages)
         response = openai.ChatCompletion.create(
             model=self.model,
             messages=self.messages,
             temperature=0.7,
             n=1,
-            max_tokens=int(len(message)*1.5),
+            max_tokens=int(len(message)*1.5)
         )
         self.messages.append({"role": "assistant", "content": response["choices"][0]["message"].content})
         return response["choices"][0]["message"]
@@ -64,7 +64,7 @@ modname = os.path.basename(__file__)[:-3] # calculating modname
 def start(core:OneRingCore):
     manifest = {
         "name": "Translation through ChatGPT",
-        "version": "2.0",
+        "version": "3.0",
         "description": "After define apiKey allow to translate through ChatGPT.",
 
         "options_label": {
@@ -76,7 +76,8 @@ def start(core:OneRingCore):
         "default_options": {
             "apiKey": "", #
             "apiBaseUrl": "",  #
-            "system": "You are a professional translator."
+            "system": "You are a professional translator.",
+            "prompt": "Instruction: Translate this text from {0} to {1}:\n\n{2}"
         },
 
         "translate": {
@@ -107,9 +108,11 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     from_full_lang = core.dict_2let_to_lang.get(from_lang)
     to_full_lang = core.dict_2let_to_lang.get(to_lang)
 
-    prompt = f"Instruction: Translate this text from {from_full_lang} to {to_full_lang}:\n\n{text}"
+    #prompt = f"Instruction: Translate this text from {from_full_lang} to {to_full_lang}:\n\n{text}"
+    prompt = str(options["prompt"]).format(from_full_lang,to_full_lang,text)
+    system_text = str(options["system"]).format(from_full_lang,to_full_lang,text)
 
-    core.chatapp = ChatApp(system=options["system"]) # create new chat
+    core.chatapp = ChatApp(system=system_text) # create new chat
 
     response = core.chatapp.chat(prompt)  # generate_response(phrase)
     #print(response)
