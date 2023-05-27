@@ -11,7 +11,7 @@ BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes th
 #BLEU_PAIRS_2LETTERS = "fr->en,en->fr" # needed to pass to plugins
 #BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
 
-BLEU_PLUGINS = "no_translate,fb_nllb_ctranslate2" # plugins to estimate
+BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
 #BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.

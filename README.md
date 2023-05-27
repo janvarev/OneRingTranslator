@@ -17,7 +17,8 @@ Supported translators by plugins for now:
 - Deepl Translate (online, require API key)
 - Libre Translate (online or offline)
 - FB NLLB neuronet (offline)
-  - Also support [CTranslate2](https://opennmt.net/CTranslate2/index.html) realization of neuronet  
+  - Also support [CTranslate2](https://opennmt.net/CTranslate2/index.html) realization of neuronet
+- FB MBart50 (imho worser then NLLB) 
 - KoboldAPI endpoint (offline mostly due to target localhost)
   - KoboldAPI is a REST interface for lots of LLM servers (like [koboldcpp](https://github.com/LostRuins/koboldcpp/releases), [text-generation-webui](https://github.com/oobabooga/text-generation-webui))
   - If you load some LLM model inside this LLM server, you can translate texts using them!
@@ -60,6 +61,8 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline. 
 | openai_chat gpt-3.5-turbo (aka ChatGPT)                        |      ----- |      ----- |      41.49 |      30.9  |
 | koboldapi_translate (alpaca7B-4bit)                            |      43.51 |      30.54 |      32    |      14.19 |
 | koboldapi_translate (alpaca30B-4bit)                           |      ----- |      ----- |      ----- |      24.0  |
+| fb_mbart50  facebook/mbart-large-50-one-to-many-mmt            |      ----- |      48.79 |      ----- |      28.55 |
+| fb_mbart50  facebook/mbart-large-50-many-to-many-mmt           |      50.26 |      48.93 |      42.47 |      28.56 |
 
 Average results with different LLMs:
 
