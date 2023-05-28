@@ -4,18 +4,18 @@ from nltk.translate.bleu_score import sentence_bleu
 from oneringcore import OneRingCore
 
 # ----------------- key settings params ----------------
-BLEU_PAIRS = "eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
-BLEU_PAIRS_2LETTERS = "en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
+BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
+BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
 #BLEU_PAIRS = "fra->eng,eng->fra"
 #BLEU_PAIRS_2LETTERS = "fr->en,en->fr" # needed to pass to plugins
 #BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
 
 #BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
-BLEU_PLUGINS = "no_translate,koboldapi_translate" # plugins to estimate
+BLEU_PLUGINS = "no_translate2,google_translate" # plugins to estimate
 
-BLEU_NUM_PHRASES = 20 # num of phrases to estimate. Between 1 and 100 for now.
-BLEU_START_PHRASE = 200 # offset from FLORES dataset to get NUM phrases
+BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
+BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
 
 BLEU_METRIC = "bleu" # bleu | comet
 
@@ -122,8 +122,7 @@ if __name__ == "__main__":
                     #print(score_pred)
                     tqdm_bar.set_description(
                         f"'{plugin}' on '{pair}' pair, {BLEU_METRIC.upper()} score, getting translations...: ")
-
-                print(f"Original: {text_need_translate}\nTranslation: {text_candidate}\nReference: {text_reference}\nScore: {score}\n\n")
+                #print(f"Original: {text_need_translate}\nTranslation: {text_candidate}\nReference: {text_reference}\nScore: {score}\n\n")
 
 
 
