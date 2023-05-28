@@ -11,11 +11,13 @@ BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes th
 #BLEU_PAIRS_2LETTERS = "fr->en,en->fr" # needed to pass to plugins
 #BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
 
-BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
-#BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
+#BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
+BLEU_PLUGINS = "no_translate2,google_translate" # plugins to estimate
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
+
+BLEU_METRIC = "bleu" # bleu | comet
 
 core:OneRingCore = None
 
@@ -65,6 +67,13 @@ if __name__ == "__main__":
 
     table_bleu = [([bleu_plugins_ar[i]] + (["-"] * len(pairs_ar))) for i in range(len(bleu_plugins_ar))]
 
+    if BLEU_METRIC == "comet":
+        from comet import download_model, load_from_checkpoint
+        print("Activating COMET model...")
+        model_path = download_model("Unbabel/wmt22-comet-da")
+        model = load_from_checkpoint(model_path)
+        print("COMET model activated!")
+
     for j in range(len(pairs_ar)):
         pair = pairs_ar[j]
         pair2 = pairs_ar2[j]
@@ -85,25 +94,53 @@ if __name__ == "__main__":
             bleu_cnt = 0
             print(f"---- Estimating {plugin} for pair {pair}....")
             tqdm_bar = trange(len(from_lines))
+
+            data_comet = []
+
             for i in tqdm_bar: # tqdm range
                 text_need_translate = from_lines[i]["row"]["sentence"]
                 text_reference = to_lines[i]["row"]["sentence"]
                 text_candidate = translate(text_need_translate,from_lang_let2,to_lang_let2, plugin)
 
-                score = sentence_bleu([text_reference.strip().split()],text_candidate.strip().split(),weights=(0.5, 0.5))
+                if BLEU_METRIC == "bleu":
+                    score = sentence_bleu([text_reference.strip().split()],text_candidate.strip().split(),weights=(0.5, 0.5))
+
+                    bleu_sum += score
+                    bleu_cnt += 1
+
+                    tqdm_bar.set_description(
+                        f"'{plugin}' on '{pair}' pair average {BLEU_METRIC.upper()} score: {'{:8.2f}'.format(bleu_sum * 100 / bleu_cnt)}")
+                elif BLEU_METRIC == "comet":
+                    data_comet.append(
+                        {
+                            "src": text_need_translate,
+                            "mt": text_candidate,
+                            "ref": text_reference
+                        }
+                    )
+                    #score_pred = model.predict(data, batch_size=8, gpus=0)
+                    #print(score_pred)
+                    tqdm_bar.set_description(
+                        f"'{plugin}' on '{pair}' pair, {BLEU_METRIC.upper()} score, getting translations...: ")
                 #print(f"Original: {text_need_translate}\nTranslation: {text_candidate}\nReference: {text_reference}\nScore: {score}\n\n")
 
-                bleu_sum += score
-                bleu_cnt += 1
 
-                tqdm_bar.set_description(f"'{plugin}' on '{pair}' pair average BLEU score: {'{:8.2f}'.format(bleu_sum*100/bleu_cnt)}")
 
                 # if plugin == "openai_chat":
                 #     import time
                 #     time.sleep(20)
 
-            bleu_score = bleu_sum / len(from_lines)
-            print(f"****** Average BLEU score for '{plugin}' on '{pair.upper()}' pair ({len(to_lines)} samples): {bleu_score}")
+            if BLEU_METRIC == "bleu":
+                bleu_score = bleu_sum / len(from_lines)
+
+            elif BLEU_METRIC == "comet":
+                print("Calculating COMET model...")
+                score_pred = model.predict(data_comet, batch_size=8, gpus=0)
+                #print(score_pred)
+
+                bleu_score = score_pred.get("system_score")
+
+            print(f"****** Average {BLEU_METRIC.upper()} score for '{plugin}' on '{pair.upper()}' pair ({len(to_lines)} samples): {bleu_score}")
 
             table_bleu[k][j+1] = "{:8.2f}".format(bleu_score*100)
 
@@ -111,7 +148,7 @@ if __name__ == "__main__":
     res_print_table = tabulate(table_bleu,headers=[" "*60]+pairs_ar,tablefmt="github")
 
     print("*" * 60)
-    print("BLEU scores")
+    print(f"{BLEU_METRIC.upper()} scores")
     print("*" * 60)
     print(res_print_table)
 

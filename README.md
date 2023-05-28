@@ -8,7 +8,7 @@ Features:
 - **Ready to use**. By default use Google Translate service, and ready to use.
 - Simple REST interface throw FastApi and openapi.json interface. After install go to `http://127.0.0.1:4990/docs` to see examples.
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service.
-- **Automatic BLEU estimation of translation quality** 
+- **Automatic BLEU and COMET estimation of translation quality** 
   - If you want to test different plugins translation quality on your pair of languages - you can do it! (Supported over 100 languages from FLORES dataset)
   - If you have your own plugin - you can compare it with others!  
 
@@ -40,13 +40,13 @@ To run:
 
 Docs and test run: `http://127.0.0.1:4990/docs`
 
-## Average BLEU results for translation quality
+## Average BLEU and COMET results for translation quality
 
 BLEU (bilingual evaluation understudy) is an automatic algorithm for evaluating the quality of text which has been machine-translated from one natural language to another.
 
 Use this results just for reference.
 
-Table with BLEU scores (higher is better, no_translate can be used as baseline. Average on 100 examples from FLORES, offset = 150):
+BLEU scores (higher is better, no_translate can be used as baseline. Average on 100 examples from FLORES, offset = 150):
 
 |                                                                |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
 |----------------------------------------------------------------|------------|------------|------------|------------|
@@ -55,7 +55,7 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline. 
 | fb_nllb_translate nllb-200-distilled-600M                      |      51.92 |      52.73 |      41.38 |      31.41 |
 | fb_nllb_translate nllb-200-distilled-1.3B                      |      56.81 |       55   |      46.03 |      33.98 |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16     |      54.87 |      56.73 |      48.45 |      36.85 |
-| fb_nllb_ctranslate2 JustFr*ik/nllb-200-distilled-1.3B-ct2-int8 |      56.12 |      56.45 |      46.07 |      34.56 |
+| fb_nllb_ctranslate2 JustFr-ik/nllb-200-distilled-1.3B-ct2-int8 |      56.12 |      56.45 |      46.07 |      34.56 |
 | google_translate                                               |      58.08 |      59.99 |      47.7  |      37.98 |
 | deepl_translate                                                |      57.67 |      59.93 |      50.09 |      38.91 |
 | openai_chat gpt-3.5-turbo (aka ChatGPT)                        |      ----- |      ----- |      41.49 |      30.9  |
@@ -64,7 +64,7 @@ Table with BLEU scores (higher is better, no_translate can be used as baseline. 
 | fb_mbart50  facebook/mbart-large-50-one-to-many-mmt            |      ----- |      48.79 |      ----- |      28.55 |
 | fb_mbart50  facebook/mbart-large-50-many-to-many-mmt           |      50.26 |      48.93 |      42.47 |      28.56 |
 
-Average results with different LLMs:
+Average BLEU results with different LLMs:
 
 |                                            |   rus->eng |   eng->rus |
 |--------------------------------------------|------------|------------|
@@ -76,6 +76,18 @@ Average results with different LLMs:
 
 'koboldapi_translate' on 'eng->rus' pair average BLEU score:     7.00: 80/100
 on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for input prompt needed
+
+COMET scores (higher is better, no_translate2 can be used as baseline. Average on 100 examples from FLORES, offset = 150):
+
+|                                                                |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
+|----------------------------------------------------------------|------------|------------|------------|------------|
+| no_translate2                                                  |      31.66 |      32.06 |      33.03 |      25.58 |
+| libre_translate                                                |      86.66 |      82.36 |      80.36 |      83.34 |
+| fb_nllb_translate nllb-200-distilled-1.3B                      |      89.01 |      87.95 |      86.91 |      88.57 |
+| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16     |      ----- |      ----- |      87.29 |      88.79 |
+| google_translate                                               |      89.67 |      88.9  |      87.53 |      89.63 |
+| deepl_translate                                                |      ----- |      ----- |      87.77 |      89.73 |
+
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
@@ -248,4 +260,6 @@ BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate, separated 
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
+
+BLEU_METRIC = "bleu" # bleu | comet
 ```
