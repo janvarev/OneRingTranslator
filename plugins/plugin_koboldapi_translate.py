@@ -11,10 +11,11 @@ modname = os.path.basename(__file__)[:-3] # calculating modname
 def start(core:OneRingCore):
     manifest = { # plugin settings
         "name": "KoboldAPI Translator", # name
-        "version": "1.0", # version
+        "version": "2.0", # version
 
         "default_options": {
             "custom_url": "http://localhost:5000/",  #
+            "prompt": "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n### Instruction:\nTranslate this text from {0} to {1}:\n\n{2}\n\n\n### Response:"
         },
 
         "translate": {
@@ -29,6 +30,8 @@ def init(core:OneRingCore):
     pass
 
 def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", add_params:str = ""):
+    options = core.plugin_options(modname)
+
     import json
     custom_stopping_strings = ["\n\n","\n### "]
     params = {
@@ -61,15 +64,15 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
 
     from time import time
     start = time()
-    # Input prompt for Alpaca
-    tpl = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n"
-    tpl += f"### Instruction:\nTranslate this text from {from_full_lang} to {to_full_lang}:\n\n"
-    #tpl += "### Input:\n{0}\n\n\n\n"
-    tpl += "{0}\n\n\n"
-    tpl += "### Response:"
+    # # Input prompt for Alpaca
+    # tpl = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n"
+    # tpl += f"### Instruction:\nTranslate this text from {from_full_lang} to {to_full_lang}:\n\n"
+    # #tpl += "### Input:\n{0}\n\n\n\n"
+    # tpl += "{0}\n\n\n"
+    # tpl += "### Response:"
 
-    prompt = tpl.format(text)
-
+    prompt = str(options["prompt"]).format(from_full_lang,to_full_lang,text)
+    print(prompt)
 
     params["prompt"] = prompt
     #print(params)
