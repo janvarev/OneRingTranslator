@@ -2,18 +2,46 @@
 # ----------
 
 from fastapi import FastAPI, HTTPException
-from starlette.responses import Response
+from starlette.responses import Response, HTMLResponse
 import uvicorn
 import multiprocessing
+
+from starlette.staticfiles import StaticFiles
+
 from oneringcore import OneRingCore
 
 import asyncio
 
 app = FastAPI()
 
-version = "1.0"
+version = "2.0"
 
 core:OneRingCore = None
+
+app.mount("/webapi_client", StaticFiles(directory="webapi_client", html = True), name="webapi_client")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_items():
+    html_content = """
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>OneRingTranslator</title>
+            <link rel="stylesheet" href="/webapi_client/chota.min.css">
+        </head>
+        <body>
+            <div id="top" class="container" role="document">
+                <h1>Welcome to OneRingTranslator!</h1>
+                
+                <a href="/webapi_client" class="button">Simple interface</a><br />
+                <br />
+                <a href="/docs" class="button">API and docs</a>
+            </div>
+        </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content, status_code=200)
 
 @app.on_event("startup")
 async def startup_event():
@@ -52,7 +80,7 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
 
        :param str add_params: additional params for translation (depends on plugin)
 
-       :param int api_key: api key for access (if service setup in security mode with api keys)
+       :param str api_key: api key for access (if service setup in security mode with api keys)
 
        :return: dict (result: text)
        """
@@ -103,6 +131,9 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
 
     if core.is_debug_input_output:
         print("Output: {0}".format(res))
+
+    # import time
+    # time.sleep(1)
 
     return {"result": res}
 
