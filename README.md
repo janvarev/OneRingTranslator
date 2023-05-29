@@ -38,7 +38,7 @@ To run:
 1. Install requirements ```pip install -r requirements.txt```
 2. Run run_webapi.py.
 
-Docs and test run: `http://127.0.0.1:4990/docs`
+Links to docs and simple Web interface: `http://127.0.0.1:4990/`
 
 ## Average BLEU and COMET results for translation quality
 
