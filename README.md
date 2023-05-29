@@ -101,6 +101,17 @@ Options: no
 
 Translate with Google Translate.
 
+### deepl_translate
+
+Translate via Deepl. API key required. 
+
+```python
+"options": {
+    "api_key": "",  #
+    "is_free_api": True, # use Free version or not
+},
+```
+
 ### libre_translate
 
 Libre Translate service
@@ -127,6 +138,11 @@ Translate by NLLB neuronet with [CTranslate2](https://opennmt.net/CTranslate2/in
 
 CTranslate2 allow you to use quantization (fp16 and int8) to speed up and lower GPU memory req.
 
+This plugin require some preparations:
+- You need specially prepared NLLB models (converted with CTranslate2). I found some of them here: https://huggingface.co/JustFrederik
+- You need download them MANUALLY, and place in some folder under OneRingTranslator installation, and set model to path to this folder. 
+Models will not download automatically.
+
 Options
 - `model` define model to use 
 - `cuda"`: -1, # -1 if you want run on CPU, 0 - if on CUDA
@@ -137,18 +153,30 @@ Dummy plugins that just return original text.
 
 Options: no
 
+### no_translate2
+
+Dummy plugins that just return blank text (good for COMET eval). 
+
+Options: no
+
 ### koboldapi_translate
 
 Translate by sending prompt to LLM throw KoboldAPI (REST) interface. 
 
 Options:
 - `custom_url` Kobold API endpoint
+- `prompt`: prompt template. Default is Alpaca-style: "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n### Instruction:\nTranslate this text from {0} to {1}:\n\n{2}\n\n\n### Response:"
 
 KoboldAPI is a REST interface for lots of LLM servers (like [koboldcpp](https://github.com/LostRuins/koboldcpp/releases), [text-generation-webui](https://github.com/oobabooga/text-generation-webui))
 
 If you load some LLM model inside this LLM server, you can translate texts using them!
 
 (Now plugin uses Alpaca template to set translation task. Change it if you want)
+
+In `prompt` {0}, {1} and {2} will be replaced to: 
+- en name of source lang
+- en name of target lang
+- text to translate
 
 ### openai_chat
 
@@ -158,11 +186,17 @@ Default options:
 - "apiKey": "", #
 - "apiBaseUrl": "",  #
 - "system": "You are a professional translator."
+- "prompt": "Instruction: Translate this text from {0} to {1}:\n\n{2}"
 
 Description:
 - "apiKey": "API-key OpenAI", #
 - "apiBaseUrl": "URL for OpenAI (allow OpenAI emulation servers)",  #
 - "system": "System input string."
+
+In `system` and `prompt` {0}, {1} and {2} will be replaced to: 
+- en name of source lang
+- en name of target lang
+- text to translate
 
 ### More plugins
 
