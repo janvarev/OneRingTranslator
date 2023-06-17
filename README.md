@@ -93,6 +93,8 @@ COMET scores (higher is better, no_translate2 can be used as baseline. Average o
 
 ## Plugins
 
+You can adjust options after first fun in file `options/<plugin_name>.json`
+
 ### google_translate
 
 Used by default. 
