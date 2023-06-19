@@ -15,6 +15,7 @@ Features:
 Supported translators by plugins for now:
 - Google Translate (online, free)
 - Deepl Translate (online, require API key)
+  - [Alt version](https://github.com/janvarev/onering_plugins_chrome_dev) that doesn't require API key 
 - Libre Translate (online or offline)
 - FB NLLB neuronet (offline)
   - Also support [CTranslate2](https://opennmt.net/CTranslate2/index.html) realization of neuronet

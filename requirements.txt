@@ -9,3 +9,6 @@ fastapi
 starlette
 
 termcolor
+
+# some plugins
+websocket-client
