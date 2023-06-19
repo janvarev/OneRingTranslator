@@ -185,6 +185,17 @@ Options
 - `model` define model to use 
 - `cuda"`: -1, # -1 if you want run on CPU, 0 - if on CUDA
 
+### fb_mbart50
+
+Realize mBART-50 network from here: https://huggingface.co/facebook/mbart-large-50-one-to-many-mmt
+
+IMHO just worser in translation than FB NLLB.
+
+Options
+- `model` define model to use 
+- `cuda"`: -1, # -1 if you want run on CPU, 0 - if on CUDA
+
+
 ### no_translate
 
 Dummy plugins that just return original text. 
