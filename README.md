@@ -4,7 +4,7 @@ Simple WEB API REST service for translation.
 
 Features:
 - **Plugin support**. If you misses some translation engine, you can add it yourself! 
-- **Full offline translation (optionally).** You can setup your own offlie https://github.com/LibreTranslate/LibreTranslate service and target this service to use it as endpoint.
+- **Full offline translation (optionally).** You can setup your own offline https://github.com/LibreTranslate/LibreTranslate service and target this service to use it as endpoint. Or use effective FB NLLB neuronet.
 - **Ready to use**. By default use Google Translate service, and ready to use.
 - Simple REST interface throw FastApi and openapi.json interface. After install go to `http://127.0.0.1:4990/docs` to see examples.
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service.
@@ -29,17 +29,54 @@ Supported translators by plugins for now:
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - No Translate (offline) - dummy translator to compare with
 
-## One-click installer for Windows
+## Installation and run
 
-Go here: https://github.com/janvarev/OneRingTranslator-installer and follow instructions.
+### Install 
+- If you're on Windows, you can use **fast one click installer**: Go here: https://github.com/janvarev/OneRingTranslator-installer and follow instructions.
+  - If you **plan to use offline translation plugins**, please choose B on install query and install "torch" packet.  
+- If you're on other system   
+  - Install python 3.10.x (if needed)
+  - Install requirements by cmd ```pip install -r requirements.txt```
+  - If you plan to use offline translation ```pip install -r requirements-offline.txt```
 
-## Install and run
+### Run
+- If you've used one click installer for Windows just run `start-webapi.bat`
+- If you are on other system, run `run_webapi.py`
 
-To run: 
-1. Install requirements ```pip install -r requirements.txt```
-2. Run run_webapi.py.
+### Fast configuration for online translation
 
-Links to docs and simple Web interface: `http://127.0.0.1:4990/`
+If you're ok to use **online** translation:
+
+**Congratulations, you're done!** By default OneRingTranslator just transfer your calls to Google Translate. 
+
+Visit docs and simple Web interface: http://127.0.0.1:4990/
+
+### Fast configuration for offline translation
+
+If you plan to use **offline** translation:
+- Run webapi at least one time.
+- Open file `options/core.json`
+- Set `"default_translate_plugin": "fb_nllb_translate"`, and save file 
+- Run. During the first run neuronet model will be downloaded from huggingface hub, it takes time
+
+- **You're done!**
+
+Visit docs and simple Web interface: http://127.0.0.1:4990/
+
+## Translation-through-plugins logic
+
+Different translation servers (Google Translate, DeepL, Libre, local FB NLLB translation) are supported through **plugins**. There are several in plugins folder. 
+
+[Available plugins docs here](#plugins). You can setup the default plugin for translation by set `"default_translate_plugin"` option in `options/core.json` file after first run. 
+
+You can adjust options after first fun in file `options/<plugin_name>.json`
+
+Plugins are located in the `plugins` folder and must start with the "plugins_" prefix.
+
+Plugin settings, if any, are located in the "options" folder (created after the first launch).
+
+For developers: plugins supported throw [Jaa.py](https://github.com/janvarev/jaapy) - minimalistic one-file plugin engine. 
+Check this project for details "how to dev your own plugin".
 
 ## Average BLEU and COMET results for translation quality
 
@@ -93,8 +130,6 @@ COMET scores (higher is better, no_translate2 can be used as baseline. Average o
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
 ## Plugins
-
-You can adjust options after first fun in file `options/<plugin_name>.json`
 
 ### google_translate
 

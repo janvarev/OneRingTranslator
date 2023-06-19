@@ -1,0 +1,5 @@
+torch
+torchaudio
+transformers
+ctranslate2
+
