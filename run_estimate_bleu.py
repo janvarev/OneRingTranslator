@@ -27,6 +27,9 @@ def load_dataset(lang, split, start, num):
     #print(req_url)
     #return ""
     r = requests.get(req_url)
+    if r.status_code != 200:
+        print(f"Error {r.status_code} during get dataset {req_url}")
+        quit()
     j = r.json()
     #return j["rows"]
 
