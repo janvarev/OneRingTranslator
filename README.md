@@ -129,6 +129,7 @@ COMET scores (higher is better, no_translate2 can be used as baseline. Average o
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16     |      ----- |      ----- |      87.29 |      88.79 |
 | google_translate                                               |      89.67 |      88.9  |      87.53 |      89.63 |
 | deepl_translate                                                |      ----- |      ----- |      87.77 |      89.73 |
+| yandex_dev                                                     |      ----- |      ----- |      87.34 |      90.27 |
 
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
