@@ -7,13 +7,16 @@ from oneringcore import OneRingCore
 BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
 BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
+BLEU_PAIRS = "rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
+BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
+
 #BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
-BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
+BLEU_PLUGINS = "no_translate2,google_translate,yandex_dev" # plugins to estimate
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
 
-BLEU_METRIC = "bleu" # bleu | comet
+BLEU_METRIC = "comet" # bleu | comet
 
 core:OneRingCore = None
 
