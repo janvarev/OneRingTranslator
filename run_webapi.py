@@ -93,49 +93,31 @@ async def translate(text:str, from_lang:str = "", to_lang:str = "", translator_p
         if not (api_key in core.api_keys_allowed):
             return {"error": "No valid API key provided"}
 
-    if translator_plugin != "":
-        core.init_translator_engine(translator_plugin)
 
-        if translator_plugin not in core.inited_translator_engines:
-            return {"error": "Translator plugin not inited"}
-
-    if core.is_debug_input_output:
-        print("Input: {0}".format(text))
-
-    if translator_plugin == "":
-        translator_plugin = core.default_translator
-
-    if from_lang == "":
-        from_lang = core.default_from_lang
-
-    if to_lang == "":
-        to_lang = core.default_to_lang
-
-    if from_lang == "user":
-        from_lang = core.user_lang
-        if core.user_lang == "":
-            return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
-
-    if to_lang == "user":
-        to_lang = core.user_lang
-        if core.user_lang == "":
-            return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
 
 
     if core.is_multithread:
         #print("Multithread")
-        res = await asyncio.to_thread(core.translators[translator_plugin][1], core, text, from_lang, to_lang, add_params)
+        #res = await asyncio.to_thread(core.translators[translator_plugin][1], core, text, from_lang, to_lang, add_params)
+
+        # init before other threads will run
+        if translator_plugin != "":
+            core.init_translator_engine(translator_plugin)
+
+            if translator_plugin not in core.inited_translator_engines:
+                return {"error": "Translator plugin not inited"}
+
+        res = await asyncio.to_thread(core.translate, text, from_lang, to_lang, translator_plugin,
+                                      add_params)
     else:
-        res = core.translators[translator_plugin][1](core,text,from_lang,to_lang,add_params)
+        res = core.translate(text,from_lang,to_lang,translator_plugin,add_params)
 
 
-    if core.is_debug_input_output:
-        print("Output: {0}".format(res))
 
     # import time
     # time.sleep(1)
 
-    return {"result": res}
+    return res #{"result": res}
 
 @app.get(
     "/translator_plugin_info",

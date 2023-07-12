@@ -1,8 +1,12 @@
+from typing import Optional
+
 from jaa import JaaCore
 
 from termcolor import colored, cprint
+import os
+import json
 
-version = "4.1.0"
+version = "5.0.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):
@@ -21,6 +25,11 @@ class OneRingCore(JaaCore):
         self.is_multithread:bool = True
 
         self.user_lang:str = ""
+
+        self.cache_is_use = False
+        self.cache_save_every = 5
+
+        self.cache_dict:dict[str,dict[str,str]] = {}
 
         self.inited_translator_engines = []
 
@@ -72,7 +81,7 @@ class OneRingCore(JaaCore):
     def init_translator_engine(self, translator_engine:str):
 
         if translator_engine in self.inited_translator_engines:
-            # alreaduy inited
+            # already inited
             return
 
         try:
@@ -84,4 +93,87 @@ class OneRingCore(JaaCore):
         except Exception as e:
             self.print_error("Error init translation plugin {0}...".format(translator_engine), e)
 
+    def translate(self, text:str, from_lang:str = "", to_lang:str = "", translator_plugin:str = "", add_params:str = ""):
+        if self.is_debug_input_output:
+            print("Input: {0}".format(text))
+
+        if translator_plugin != "":
+            self.init_translator_engine(translator_plugin)
+
+            if translator_plugin not in self.inited_translator_engines:
+                return {"error": "Translator plugin not inited"}
+
+        if translator_plugin == "":
+            translator_plugin = self.default_translator
+
+        if from_lang == "":
+            from_lang = self.default_from_lang
+
+        if to_lang == "":
+            to_lang = self.default_to_lang
+
+        if from_lang == "user":
+            from_lang = self.user_lang
+            if self.user_lang == "":
+                return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
+
+        if to_lang == "user":
+            to_lang = self.user_lang
+            if self.user_lang == "":
+                return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
+
+        cache_id = self.cache_calc_id(from_lang,to_lang,translator_plugin)
+        if self.cache_is_use:
+            cache_res = self.cache_get(text,cache_id)
+            if cache_res is not None:
+                if self.is_debug_input_output:
+                    print("Output from CACHE: {0}".format(cache_res))
+                return {"result": cache_res, "cache": True}
+
+        res = self.translators[translator_plugin][1](self, text, from_lang, to_lang, add_params)
+
+        if self.is_debug_input_output:
+            print("Output: {0}".format(res))
+
+        if self.cache_is_use:
+            self.cache_set(text,cache_id,res)
+
+        return {"result": res, "cache": False}
+
+    # -------------- caching functions ----------------
+    def cache_calc_id(self, from_lang:str, to_lang:str, translator_plugin:str) -> str:
+        return translator_plugin+"__"+from_lang+"__"+to_lang
+
+    def cache_calc_filepath(self, cache_id:str) -> str:
+        return os.path.dirname(__file__)+os.path.sep+"cache"+os.path.sep+cache_id+".json"
+
+    def cache_load_if_not_exists(self, cache_id:str):
+        if self.cache_dict.get(cache_id) is None:
+            if os.path.exists(self.cache_calc_filepath(cache_id)):
+                with open(self.cache_calc_filepath(cache_id), 'r', encoding="utf-8") as f:
+                    # Load the JSON data from the file into a Python dictionary
+                    data = json.load(f)
+
+                    self.cache_dict[cache_id] = data
+            else:
+                self.cache_dict[cache_id] = {}
+    def cache_get(self, text:str, cache_id:str) -> Optional[str]:
+        self.cache_load_if_not_exists(cache_id)
+
+        return self.cache_dict.get(cache_id).get(text)
+
+    def cache_set(self, text:str, cache_id:str, text_translated:str):
+        self.cache_load_if_not_exists(cache_id)
+
+        self.cache_dict[cache_id][text] = text_translated
+
+        #print(cache_id,self.cache_dict[cache_id])
+
+        if len(self.cache_dict[cache_id]) % self.cache_save_every == 0:
+            self.cache_save(cache_id)
+            #print("saved!")
+
+    def cache_save(self, cache_id:str):
+        with open(self.cache_calc_filepath(cache_id), 'w', encoding="utf-8") as f:
+            json.dump(self.cache_dict[cache_id], f, indent=2, ensure_ascii=False)
 

@@ -7,12 +7,8 @@ from oneringcore import OneRingCore
 BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
 BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-#BLEU_PAIRS = "fra->eng,eng->fra"
-#BLEU_PAIRS_2LETTERS = "fr->en,en->fr" # needed to pass to plugins
-#BLEU_PLUGINS = "no_translate,libre_translate,fb_nllb_translate,google_translate"
-
 #BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
-BLEU_PLUGINS = "no_translate2,google_translate" # plugins to estimate
+BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
@@ -44,18 +40,13 @@ def load_dataset(lang, split, start, num):
 
 
 def translate(text:str, from_lang:str = "", to_lang:str = "", translator_plugin:str = "", add_params:str = ""):
-    if translator_plugin != "":
-        core.init_translator_engine(translator_plugin)
 
-        if translator_plugin not in core.inited_translator_engines:
-            return {"error": "Translator plugin not inited"}
+    res = core.translate(text,from_lang,to_lang,translator_plugin,add_params)
 
-    if translator_plugin == "":
-        translator_plugin = core.default_translator
+    if res.get("error") is not None:
+        raise ValueError("Error in translate: "+res.get("error"))
 
-    res = core.translators[translator_plugin][1](core,text,from_lang,to_lang,add_params)
-
-    return res
+    return res.get("result"), res.get("cache")
 
 if __name__ == "__main__":
     from tqdm import trange
@@ -103,7 +94,7 @@ if __name__ == "__main__":
             for i in tqdm_bar: # tqdm range
                 text_need_translate = from_lines[i]["row"]["sentence"]
                 text_reference = to_lines[i]["row"]["sentence"]
-                text_candidate = translate(text_need_translate,from_lang_let2,to_lang_let2, plugin)
+                text_candidate, is_from_cache = translate(text_need_translate,from_lang_let2,to_lang_let2, plugin)
 
                 if BLEU_METRIC == "bleu":
                     score = sentence_bleu([text_reference.strip().split()],text_candidate.strip().split(),weights=(0.5, 0.5))
@@ -128,10 +119,12 @@ if __name__ == "__main__":
                 #print(f"Original: {text_need_translate}\nTranslation: {text_candidate}\nReference: {text_reference}\nScore: {score}\n\n")
 
 
-
-                # if plugin == "openai_chat":
-                #     import time
-                #     time.sleep(20)
+                # on some web plugin and not from cache result we need delay
+                # (cache results must pass without delay)
+                if plugin == "openai_chat" and not is_from_cache:
+                    import time
+                    import random
+                    time.sleep(20 + random.random()*3)
 
             if BLEU_METRIC == "bleu":
                 bleu_score = bleu_sum / len(from_lines)

@@ -8,6 +8,7 @@ Features:
 - **Ready to use**. By default use Google Translate service, and ready to use.
 - Simple REST interface throw FastApi and openapi.json interface. After install go to `http://127.0.0.1:4990/docs` to see examples.
 - **API keys**. (Disabled by default) You can restrict access to your service by set up a list of API keys, needed to access the service.
+- **Cache translations** (if necessary)
 - **Automatic BLEU and COMET estimation of translation quality** 
   - If you want to test different plugins translation quality on your pair of languages - you can do it! (Supported over 100 languages from FLORES dataset)
   - If you have your own plugin - you can compare it with others!  
@@ -27,7 +28,9 @@ Supported translators by plugins for now:
 - OpenAI Chat interface (ChatGPT), (online or offline emulation)
   - API key required, if you want to connect to OpenAI servers
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
+- Yandex translation ([through browser manipulation](https://github.com/janvarev/onering_plugins_chrome_dev))
 - No Translate (offline) - dummy translator to compare with
+
 
 ## Installation and run
 
@@ -96,6 +99,7 @@ BLEU scores (higher is better, no_translate can be used as baseline. Average on 
 | fb_nllb_ctranslate2 JustFr-ik/nllb-200-distilled-1.3B-ct2-int8 |      56.12 |      56.45 |      46.07 |      34.56 |
 | google_translate                                               |      58.08 |      59.99 |      47.7  |      37.98 |
 | deepl_translate                                                |      57.67 |      59.93 |      50.09 |      38.91 |
+| yandex_dev                                                     |      ----- |      ----- |      46.09 |      40.23 |
 | openai_chat gpt-3.5-turbo (aka ChatGPT)                        |      ----- |      ----- |      41.49 |      30.9  |
 | koboldapi_translate (alpaca7B-4bit)                            |      43.51 |      30.54 |      32    |      14.19 |
 | koboldapi_translate (alpaca30B-4bit)                           |      ----- |      ----- |      ----- |      24.0  |
@@ -274,7 +278,10 @@ Located in `options/core.json` after first run.
     "api_keys_allowed": [], # set of API keys. If empty - no API key required.
     "debug_input_output": False, # allow debug print input and output in console
     "allow_multithread": True, # allow multithread run of translation engine
-    "user_lang": "", # standart user language. Replaces "user" in to_lang or from_lang API params 
+    "user_lang": "", # standart user language. Replaces "user" in to_lang or from_lang API params
+    "cache_is_use": True, # use cache?
+    "cache_save_every": 5,  # every X elements save cache to disk
+ 
 },
 ```
 
