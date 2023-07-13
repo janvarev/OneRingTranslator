@@ -13,7 +13,8 @@ Features:
   - If you want to test different plugins translation quality on your pair of languages - you can do it! (Supported over 100 languages from FLORES dataset)
   - If you have your own plugin - you can compare it with others!  
 
-Supported translators by plugins for now:
+## Known supported translators
+
 - Google Translate (online, free)
 - Deepl Translate (online, require API key)
   - [Alt version](https://github.com/janvarev/onering_plugins_chrome_dev) that doesn't require API key 
@@ -31,6 +32,11 @@ Supported translators by plugins for now:
 - Yandex translation ([through browser manipulation](https://github.com/janvarev/onering_plugins_chrome_dev))
 - No Translate (offline) - dummy translator to compare with
 
+## Known usages
+
+- https://github.com/HIllya51/LunaTranslator - automatic game translation tool
+- https://github.com/janvarev/multi_translate - oobabooga/text-generation-webui plugin for translate conversation with LLM (Large Language Models) UserLanguage<->English
+- https://github.com/janvarev/privateGPT - privateGPT multilanguage fork
 
 ## Installation and run
 
