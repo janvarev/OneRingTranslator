@@ -130,6 +130,7 @@ COMET scores (higher is better, no_translate2 can be used as baseline. Average o
 | google_translate                                               |      89.67 |      88.9  |      87.53 |      89.63 |
 | deepl_translate                                                |      ----- |      ----- |      87.77 |      89.73 |
 | yandex_dev                                                     |      ----- |      ----- |      87.34 |      90.27 |
+| multi_sources google_translate,deepl_translate,yandex_dev      |      ----- |      ----- |      87.74 |      90.63 |
 
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
@@ -251,6 +252,14 @@ In `system` and `prompt` {0}, {1} and {2} will be replaced to:
 - en name of source lang
 - en name of target lang
 - text to translate
+
+### multi_sources
+
+Plugins, that choose best translation from results from several other plugins (sources). 
+Uses COMET-no-reference neuronet model to find best result.
+
+Options
+- `plugins` list of plugins to get translations  
 
 ### More plugins
 
