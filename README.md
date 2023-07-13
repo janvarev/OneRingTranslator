@@ -136,8 +136,8 @@ COMET scores (higher is better, no_translate2 can be used as baseline. Average o
 | google_translate                                               |      89.67 |      88.9  |      87.53 |      89.63 |
 | deepl_translate                                                |      ----- |      ----- |      87.77 |      89.73 |
 | yandex_dev                                                     |      ----- |      ----- |      87.34 |      90.27 |
+| multi_sources deepl_translate,yandex_dev                       |      ----- |      ----- |      87.64 |      90.62 |
 | multi_sources google_translate,deepl_translate,yandex_dev      |      ----- |      ----- |      87.74 |      90.63 |
-
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
