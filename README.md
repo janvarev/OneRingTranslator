@@ -261,8 +261,10 @@ In `system` and `prompt` {0}, {1} and {2} will be replaced to:
 
 ### multi_sources
 
-Plugins, that choose best translation from results from several other plugins (sources). 
+Choose the best translation from results from several other plugins (sources). 
 Uses COMET-no-reference neuronet model to find best result.
+
+**Required:** `pip install unbabel-comet`
 
 Options
 - `plugins` list of plugins to get translations  
