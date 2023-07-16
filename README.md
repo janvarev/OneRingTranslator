@@ -12,6 +12,9 @@ Features:
 - **Automatic BLEU and COMET estimation of translation quality** 
   - If you want to test different plugins translation quality on your pair of languages - you can do it! (Supported over 100 languages from FLORES dataset)
   - If you have your own plugin - you can compare it with others!  
+- **Unique World Best results by multi_sources plugin!**
+  - We have a plugin that gains translations from multiple sources, then estimate them and return only the best
+  - It gains the best COMET translation evaluation score against other plugins. 
 
 ## Known supported translators
 
@@ -138,17 +141,18 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | no_translate2                                                    |      31.66 |      32.06 |      33.03 | 25.58     |
 | libre_translate                                                  |      86.66 |      82.36 |      80.36 | 83.34     |
 | fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 | 88.57     |
-| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      ----- |      ----- |      87.29 | 88.79     |
-| google_translate                                                 |      89.67 |      88.9  |      87.53 | 89.63     |
-| deepl_translate                                                  |      ----- |      ----- |  **87.77** | 89.73     |
+| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      88.74 |      88.32 |      87.25 |      88.83|
+| google_translate                                                 |  **89.67** |      88.9  |      87.53 | 89.63     |
+| deepl                                                            |      89.39 |      89.27 |  **87.93** |      89.82|
+| openrouter_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
+| openrouter_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
+| openrouter_chat anthropic/claude-2                               |      89.27 |      89.17 |      87.47 | 89.85     |
+| multi_sources google_translate,deepl,openrouter_chat*            |      89.66 |  **89.85** |      87.76 |     90.67 |
 | yandex_dev                                                       |      ----- |      ----- |      87.34 | 90.27     |
 | multi_sources deepl,yandex_dev                                   |      ----- |      ----- |      87.64 | 90.62     |
 | multi_sources google_translate,deepl,yandex_dev                  |      ----- |      ----- |      87.74 | 90.63     |
 | multi_sources google_translate,deepl,yandex_dev,openrouter_chat* |      ----- |      ----- |      87.71 | 90.66     |
 | multi_sources deepl,yandex_dev,openrouter_chat*                  |      ----- |      ----- |      87.67 | **90.77** |
-| openrouter_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
-| openrouter_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
-| openrouter_chat anthropic/claude-2                               |      ----- |      ----- |      87.47 | 89.85     |
 
 \* openrouter_chat with anthropic/claude-2
 
