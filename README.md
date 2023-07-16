@@ -139,6 +139,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 |                                                                  |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
 |------------------------------------------------------------------|------------|------------|------------|-----------|
 | no_translate2                                                    |      31.66 |      32.06 |      33.03 | 25.58     |
+| no_translate                                                     |      79.2  |      70.19 |       69.3 |      44.82 |
 | libre_translate                                                  |      86.66 |      82.36 |      80.36 | 83.34     |
 | fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      88.74 |      88.32 |      87.25 |      88.83|
@@ -147,6 +148,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | openrouter_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
 | openrouter_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
 | openrouter_chat anthropic/claude-2                               |      89.27 |      89.17 |      87.47 | 89.85     |
+| multi_sources google_translate,deepl                             |      89.66 |  **89.85** |       87.8 |      90.42|
 | multi_sources google_translate,deepl,openrouter_chat*            |      89.66 |  **89.85** |      87.76 |     90.67 |
 | yandex_dev                                                       |      ----- |      ----- |      87.34 | 90.27     |
 | multi_sources deepl,yandex_dev                                   |      ----- |      ----- |      87.64 | 90.62     |
@@ -311,7 +313,7 @@ Uses COMET-no-reference neuronet model to find best result.
 **Required:** `pip install unbabel-comet`
 
 Options
-- `plugins` list of plugins to get translations  
+- `model` list of plugins to get translations (named model due to easy labeling reasons)  
 
 ### More plugins
 
