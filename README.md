@@ -139,7 +139,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 |                                                                  |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
 |------------------------------------------------------------------|------------|------------|------------|-----------|
 | no_translate2                                                    |      31.66 |      32.06 |      33.03 | 25.58     |
-| no_translate                                                     |      79.2  |      70.19 |       69.3 |      44.82 |
+| no_translate                                                     |      79.2  |      70.19 |       69.3 |      44.82|
 | libre_translate                                                  |      86.66 |      82.36 |      80.36 | 83.34     |
 | fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      88.74 |      88.32 |      87.25 |      88.83|
