@@ -187,8 +187,10 @@ COMET scores
 | use_mid_lang deepl,deepl                                                 |      88.43 |
 | multi_sources google_translate,deepl                                     |      88.88 |
 | use_mid_lang multi_sources,multi_sources*                                |       88.9 |
+| multi_sources google_translate,deepl,use_mid_lang**                      |      89.05 |
 
 \* multi_sources with "google_translate,deepl"
+\** use_mid_lang with "google_translate,deepl"
 
 ## Plugins
 
