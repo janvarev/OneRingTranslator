@@ -7,16 +7,17 @@ from oneringcore import OneRingCore
 BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
 BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-BLEU_PAIRS = "rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
-BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
+#BLEU_PAIRS = "rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
+#BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-#BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
-BLEU_PLUGINS = "no_translate2,google_translate,yandex_dev" # plugins to estimate
+BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
+#BLEU_PLUGINS = "no_translate2,google_translate,fb_nllb_ctranslate2,openrouter_chat" # plugins to estimate
+#BLEU_PLUGINS = "multi_sources" # plugins to estimate
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
 
-BLEU_METRIC = "comet" # bleu | comet
+BLEU_METRIC = "bleu" # bleu | comet
 
 core:OneRingCore = None
 
@@ -62,7 +63,20 @@ if __name__ == "__main__":
     pairs_ar2 = BLEU_PAIRS_2LETTERS.split(",")
     bleu_plugins_ar = BLEU_PLUGINS.split(",")
 
-    table_bleu = [([bleu_plugins_ar[i]] + (["-"] * len(pairs_ar))) for i in range(len(bleu_plugins_ar))]
+    # adding model in info on final table
+    bleu_plugins_ar_model = []
+    for pl in bleu_plugins_ar:
+        res = pl
+        options = core.plugin_options("plugin_" + pl)
+        if options is not None:
+            model = options.get("model")
+            if model is not None:
+                res += " " + model
+        bleu_plugins_ar_model.append(res)
+
+    table_bleu = [([bleu_plugins_ar_model[i]] + (["-"] * len(pairs_ar))) for i in range(len(bleu_plugins_ar))]
+
+
 
     if BLEU_METRIC == "comet":
         from comet import download_model, load_from_checkpoint
@@ -144,10 +158,10 @@ if __name__ == "__main__":
             table_bleu[k][j+1] = "{:8.2f}".format(bleu_score*100)
 
     from tabulate import tabulate
-    res_print_table = tabulate(table_bleu,headers=[" "*60]+pairs_ar,tablefmt="github")
+    res_print_table = tabulate(table_bleu,headers=[" "*70]+pairs_ar,tablefmt="github")
 
-    print("*" * 60)
+    print("*" * 70)
     print(f"{BLEU_METRIC.upper()} scores")
-    print("*" * 60)
+    print("*" * 70)
     print(res_print_table)
 

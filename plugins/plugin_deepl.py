@@ -10,7 +10,7 @@ modname = os.path.basename(__file__)[:-3] # calculating modname
 def start(core:OneRingCore):
     manifest = { # plugin settings
         "name": "Deepl Translator", # name
-        "version": "1.0", # version
+        "version": "1.1", # version
 
         "default_options": {
             "api_key": "",  #
@@ -18,7 +18,10 @@ def start(core:OneRingCore):
         },
 
         "translate": {
-            "deepl_translate": (init,translate) # 1 function - init, 2 - translate
+
+            "deepl": (init, translate),  # 1 function - init, 2 - translate
+            # deprecated
+            "deepl_translate": (init, translate)  # 1 function - init, 2 - translate
         }
     }
     return manifest

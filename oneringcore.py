@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import os
 import json
 
-version = "5.1.0"
+version = "6.0.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):
@@ -28,6 +28,7 @@ class OneRingCore(JaaCore):
 
         self.cache_is_use = False
         self.cache_save_every = 5
+        self.cache_per_model = True
 
         self.cache_dict:dict[str,dict[str,str]] = {}
 
@@ -97,11 +98,6 @@ class OneRingCore(JaaCore):
         if self.is_debug_input_output:
             print("Input: {0}".format(text))
 
-        if translator_plugin != "":
-            self.init_translator_engine(translator_plugin)
-
-            if translator_plugin not in self.inited_translator_engines:
-                return {"error": "Translator plugin not inited"}
 
         if translator_plugin == "":
             translator_plugin = self.default_translator
@@ -130,6 +126,14 @@ class OneRingCore(JaaCore):
                     print("Output from CACHE: {0}".format(cache_res))
                 return {"result": cache_res, "cache": True}
 
+        # init after cache
+        if translator_plugin != "":
+            self.init_translator_engine(translator_plugin)
+
+            if translator_plugin not in self.inited_translator_engines:
+                return {"error": "Translator plugin not inited"}
+
+
         res = self.translators[translator_plugin][1](self, text, from_lang, to_lang, add_params)
 
         if self.is_debug_input_output:
@@ -142,7 +146,19 @@ class OneRingCore(JaaCore):
 
     # -------------- caching functions ----------------
     def cache_calc_id(self, from_lang:str, to_lang:str, translator_plugin:str) -> str:
-        return translator_plugin+"__"+from_lang+"__"+to_lang
+        res = translator_plugin+"__"+from_lang+"__"+to_lang
+        #print(self.cache_per_model)
+        if self.cache_per_model:
+            # params = self.plugin_manifest(translator_plugin)
+            # if params is not None:
+            options = self.plugin_options("plugin_"+translator_plugin)
+            #print(translator_plugin,options)
+            if options is not None:
+                model = options.get("model")
+                if model is not None:
+                    model_normalized = str(model).replace("/","_").replace("\\","_").replace(":","_")
+                    res += "__"+model_normalized
+        return res
 
     def cache_calc_filepath(self, cache_id:str) -> str:
         return os.path.dirname(__file__)+os.path.sep+"cache"+os.path.sep+cache_id+".json"

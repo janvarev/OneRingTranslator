@@ -1,4 +1,4 @@
-# Translation throw ChatGPT
+# Translation throw OpenRouter
 # author: Vladislav Janvarev
 
 import os
@@ -22,50 +22,19 @@ class ChatApp:
             self.load(load_file)
 
     def chat(self, message):
-        if message == "exit":
-            self.save()
-            os._exit(1)
-        elif message == "save":
-            self.save()
-            return "(saved)"
         self.messages.append({"role": "user", "content": message})
         print(self.messages)
-        response = openai.ChatCompletion.create(
-            model=self.model,
-            messages=self.messages,
-            temperature=0.7,
-            n=1,
-            max_tokens=int(len(message)*1.5)
-        )
         self.messages.append({"role": "assistant", "content": response["choices"][0]["message"].content})
         return response["choices"][0]["message"]
-    def save(self):
-        try:
-            import time
-            import re
-            import json
-            ts = time.time()
-            json_object = json.dumps(self.messages, indent=4)
-            filename_prefix=self.messages[0]['content'][0:30]
-            filename_prefix = re.sub('[^0-9a-zA-Z]+', '-', f"{filename_prefix}_{ts}")
-            with open(f"models/chat_model_{filename_prefix}.json", "w") as outfile:
-                outfile.write(json_object)
-        except:
-            os._exit(1)
-
-    def load(self, load_file):
-        with open(load_file) as f:
-            data = json.load(f)
-            self.messages = data
 
 modname = os.path.basename(__file__)[:-3] # calculating modname
 
 # функция на старте
 def start(core:OneRingCore):
     manifest = {
-        "name": "Translation through ChatGPT",
-        "version": "3.0",
-        "description": "After define apiKey allow to translate through ChatGPT.",
+        "name": "Translation through OpenRouter",
+        "version": "3.1",
+        "description": "After define apiKey allow to translate through OpenRouter.",
 
         "options_label": {
             "apiKey": "API-key OpenAI", #
@@ -75,13 +44,14 @@ def start(core:OneRingCore):
 
         "default_options": {
             "apiKey": "", #
-            "apiBaseUrl": "",  #
-            "system": "You are a professional translator.",
-            "prompt": "Instruction: Translate this text from {0} to {1}:\n\n{2}"
+            "apiBaseUrl": "https://openrouter.ai/api/v1",  #
+            "system": "Please translate the user message from {0} to {1}. Make the translation sound as natural as possible. Don't use any non-related phrases in result, answer with only translation text.",
+            "prompt": "{2}",
+            "model": "",
         },
 
         "translate": {
-            "openai_chat": (init, translate)  # 1 function - init, 2 - translate
+            "openrouter_chat": (init, translate)  # 1 function - init, 2 - translate
         }
 
     }
@@ -112,9 +82,26 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     prompt = str(options["prompt"]).format(from_full_lang,to_full_lang,text)
     system_text = str(options["system"]).format(from_full_lang,to_full_lang,text)
 
-    core.chatapp = ChatApp(system=system_text) # create new chat
+    messages = []
+    messages.append({"role": "system", "content": system_text})
+    messages.append({"role": "user", "content": prompt})
 
-    response = core.chatapp.chat(prompt)  # generate_response(phrase)
+    response_big = openai.ChatCompletion.create(
+        model=str(options["model"]),
+        messages=messages,
+        temperature=0.7,
+        n=1,
+        max_tokens=int(len(prompt) * 1.5),
+        headers= { "HTTP-Referer": "https://github.com/janvarev/OneRingTranslator",
+          "X-Title": "OneRingTranslator" },
+    )
+    response = response_big["choices"][0]["message"]
+
+    #core.chatapp = ChatApp(model=str(options["model"]),system=system_text) # create new chat
+
+    #response = core.chatapp.chat(prompt)  # generate_response(phrase)
     #print(response)
-    return response["content"]
+    res = str(response["content"]).strip()
+    print(res)
+    return res
 

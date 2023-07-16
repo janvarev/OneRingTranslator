@@ -7,7 +7,7 @@ from oneringcore import OneRingCore
 def start(core:OneRingCore):
     manifest = {
         "name": "Core plugin",
-        "version": "1.2",
+        "version": "1.3",
 
         "default_options": {
             "default_translate_plugin": "google_translate", # default translation engine
@@ -19,6 +19,7 @@ def start(core:OneRingCore):
             "user_lang": "", # standart user language. Replaces "user" in to_lang or from_lang API params
             "cache_is_use": True, # use cache?
             "cache_save_every": 5,  # every X elements save cache to disk
+            "cache_per_model": True, # differentiate cache per model
         },
 
     }
@@ -40,5 +41,6 @@ def start_with_options(core:OneRingCore, manifest:dict):
 
     core.cache_is_use = options["cache_is_use"]
     core.cache_save_every = options["cache_save_every"]
+    core.cache_per_model = options["cache_per_model"]
 
     return manifest
