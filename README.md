@@ -125,7 +125,7 @@ Use this results just for reference.
 | openrouter_chat openai/gpt-3.5-turbo                            |      ----- |      ----- |      41.93 |      31.12 |
 | openrouter_chat openai/gpt-4                                    |      ----- |      ----- |      44.16 |      34.88 |
 | openrouter_chat anthropic/claude-instant-v1                     |      ----- |      ----- |      41.88 |      29.67 |
-| openrouter_chat anthropic/claude-2                              |      ----- |      ----- |      46.38 |      34.13 |
+| openrouter_chat anthropic/claude-2                              |      54.91 |      56.09 |      46.38 |      34.13 |
 
 **LLMs with errors:**
 
