@@ -118,31 +118,31 @@ Use this results just for reference.
 
 **LLMs with errors:**
 
-openrouter_chat tiiuae/falcon-40b-instruct - a lot of fails
-openrouter_chat google/palm-2-chat-bison - "I'm not able to help with that, as I'm only a language model."
-
-'koboldapi_translate' on 'eng->rus' pair average BLEU score:     7.00: 80/100
+- openrouter_chat tiiuae/falcon-40b-instruct - a lot of fails
+- openrouter_chat google/palm-2-chat-bison - "I'm not able to help with that, as I'm only a language model."
+- 'koboldapi_translate' on 'eng->rus' pair average BLEU score:     7.00: 80/100
 on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for input prompt needed
 
 **COMET scores** (higher is better, no_translate2 can be used as baseline. Average on 100 examples from FLORES, offset = 150):
 
-|                                                                  |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
-|------------------------------------------------------------------|------------|------------|------------|------------|
-| no_translate2                                                    |      31.66 |      32.06 |      33.03 |      25.58 |
-| libre_translate                                                  |      86.66 |      82.36 |      80.36 |      83.34 |
-| fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 |      88.57 |
-| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      ----- |      ----- |      87.29 |      88.79 |
-| google_translate                                                 |      89.67 |      88.9  |      87.53 |      89.63 |
-| deepl_translate                                                  |      ----- |      ----- |  **87.77** |      89.73 |
-| yandex_dev                                                       |      ----- |      ----- |      87.34 |      90.27 |
-| multi_sources deepl,yandex_dev                                   |      ----- |      ----- |      87.64 |      90.62 |
-| multi_sources google_translate,deepl,yandex_dev                  |      ----- |      ----- |      87.74 |      90.63 |
-| multi_sources google_translate,deepl,yandex_dev,openrouter_chat* |      ----- |      ----- |      87.71 |  **90.66** |
-| openrouter_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 |      88.13 |
-| openrouter_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 |      89.54 |
-| openrouter_chat anthropic/claude-2                               |      ----- |      ----- |      87.47 |      89.85 |
+|                                                                  |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
+|------------------------------------------------------------------|------------|------------|------------|-----------|
+| no_translate2                                                    |      31.66 |      32.06 |      33.03 | 25.58     |
+| libre_translate                                                  |      86.66 |      82.36 |      80.36 | 83.34     |
+| fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 | 88.57     |
+| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      ----- |      ----- |      87.29 | 88.79     |
+| google_translate                                                 |      89.67 |      88.9  |      87.53 | 89.63     |
+| deepl_translate                                                  |      ----- |      ----- |  **87.77** | 89.73     |
+| yandex_dev                                                       |      ----- |      ----- |      87.34 | 90.27     |
+| multi_sources deepl,yandex_dev                                   |      ----- |      ----- |      87.64 | 90.62     |
+| multi_sources google_translate,deepl,yandex_dev                  |      ----- |      ----- |      87.74 | 90.63     |
+| multi_sources google_translate,deepl,yandex_dev,openrouter_chat* |      ----- |      ----- |      87.71 | 90.66     |
+| multi_sources deepl,yandex_dev,openrouter_chat*                  |      ----- |      ----- |      87.67 | **90.77** |
+| openrouter_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
+| openrouter_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
+| openrouter_chat anthropic/claude-2                               |      ----- |      ----- |      87.47 | 89.85     |
 
-* openrouter_chat with anthropic/claude-2
+\* openrouter_chat with anthropic/claude-2
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
