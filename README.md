@@ -31,6 +31,14 @@ Features:
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - Yandex translation ([through browser manipulation](https://github.com/janvarev/onering_plugins_chrome_dev))
 - No Translate (offline) - dummy translator to compare with
+- Translation via [OpenRouter](https://openrouter.ai/) LLM online models:
+  - ChatGPT
+  - GPT-4
+  - Claude Instant v1
+  - Claude v1
+  - Claude v2
+  - Google: PaLM 2 Bison
+  - TII: Falcon 40B Instruct
 
 ## Known usages
 
