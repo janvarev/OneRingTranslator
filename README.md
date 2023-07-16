@@ -160,6 +160,36 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
+**Chain translation results (use_mid_lang plugin)**
+
+Chain translation allow to translate phrases with mid-language (usually English)
+
+BLEU scores
+
+|                                                                          |   jpn->rus |
+|--------------------------------------------------------------------------|------------|
+| no_translate                                                             |       0    |
+| google_translate                                                         |      27.63 |
+| deepl                                                                    |      27.48 |
+| use_mid_lang google_translate,deepl                                      |      28.34 |
+| use_mid_lang google_translate,google_translate                           |      27.62 |
+| use_mid_lang deepl,deepl                                                 |      27.62 |
+
+COMET scores
+
+|                                                                          |   jpn->rus |
+|--------------------------------------------------------------------------|------------|
+| no_translate                                                             |      56.85 |
+| google_translate                                                         |      87.93 |
+| deepl                                                                    |      88.11 |
+| use_mid_lang google_translate,deepl                                      |      88.37 |
+| use_mid_lang google_translate,google_translate                           |      87.67 |
+| use_mid_lang deepl,deepl                                                 |      88.43 |
+| multi_sources google_translate,deepl                                     |      88.88 |
+| use_mid_lang multi_sources,multi_sources*                                |       88.9 |
+
+\* multi_sources with "google_translate,deepl"
+
 ## Plugins
 
 ### google_translate
