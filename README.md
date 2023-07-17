@@ -126,6 +126,8 @@ Use this results just for reference.
 | openrouter_chat openai/gpt-4                                    |      ----- |      ----- |      44.16 |      34.88 |
 | openrouter_chat anthropic/claude-instant-v1                     |      ----- |      ----- |      41.88 |      29.67 |
 | openrouter_chat anthropic/claude-2                              |      54.91 |      56.09 |      46.38 |      34.13 |
+| opus_mt Helsinki-NLP/opus-mt-en-ru                              |      ----- |      ----- |      ----- |      30.41 |
+
 
 **LLMs with errors:**
 
@@ -155,6 +157,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | multi_sources google_translate,deepl,yandex_dev                  |      ----- |      ----- |      87.74 | 90.63     |
 | multi_sources google_translate,deepl,yandex_dev,openrouter_chat* |      ----- |      ----- |      87.71 | 90.66     |
 | multi_sources deepl,yandex_dev,openrouter_chat*                  |      ----- |      ----- |      87.67 | **90.77** |
+| opus_mt Helsinki-NLP/opus-mt-en-ru                               |      ----- |      ----- |      ----- |      82.22|
 
 \* openrouter_chat with anthropic/claude-2
 
