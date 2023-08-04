@@ -33,6 +33,7 @@ Features:
   - API key required, if you want to connect to OpenAI servers
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - Yandex translation ([through browser manipulation](https://github.com/janvarev/onering_plugins_chrome_dev))
+- [Lingvanex](https://lingvanex.com/)
 - No Translate (offline) - dummy translator to compare with
 - Translation via [OpenRouter](https://openrouter.ai/) LLM online models:
   - ChatGPT
@@ -142,7 +143,9 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 |------------------------------------------------------------------|------------|------------|------------|-----------|
 | no_translate2                                                    |      31.66 |      32.06 |      33.03 | 25.58     |
 | no_translate                                                     |      79.2  |      70.19 |       69.3 |      44.82|
+| opus_mt Helsinki-NLP/opus-mt-en-ru                               |      ----- |      ----- |      ----- |      82.22|
 | libre_translate                                                  |      86.66 |      82.36 |      80.36 | 83.34     |
+| lingvanex                                                        |      87.92 |      86.99 |      84.75 |       86.3|
 | fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      88.74 |      88.32 |      87.25 |      88.83|
 | google_translate                                                 |  **89.67** |      88.9  |      87.53 | 89.63     |
@@ -157,7 +160,6 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | multi_sources google_translate,deepl,yandex_dev                  |      ----- |      ----- |      87.74 | 90.63     |
 | multi_sources google_translate,deepl,yandex_dev,openrouter_chat* |      ----- |      ----- |      87.71 | 90.66     |
 | multi_sources deepl,yandex_dev,openrouter_chat*                  |      ----- |      ----- |      87.67 | **90.77** |
-| opus_mt Helsinki-NLP/opus-mt-en-ru                               |      ----- |      ----- |      ----- |      82.22|
 
 \* openrouter_chat with anthropic/claude-2
 
