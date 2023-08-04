@@ -88,6 +88,7 @@ COMET scores
 |                                                                          |   jpn->rus |
 |--------------------------------------------------------------------------|------------|
 | no_translate                                                             |      56.85 |
+| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16               |      86.46 |
 | google_translate                                                         |      87.93 |
 | deepl                                                                    |      88.11 |
 | use_mid_lang google_translate,deepl                                      |      88.37 |

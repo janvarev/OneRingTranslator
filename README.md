@@ -23,8 +23,9 @@ Features:
 - **[Install and run](/docs_md/INSTALL.md)**
 - [Base settings and plugin logic](/docs_md/SETTINGS.md)
 - [Plugin options](/docs_md/PLUGINS.md)
-- [API usage](/docs_md/API.md)
-- [Statistics for different plugins translation quality (BLEU, COMET) and how to do it yourself](/docs_md/ESTIMATIONS.md)
+- [API usage examples](/docs_md/API.md)
+- **[Rating plugins translation quality (BLEU, COMET)](/docs_md/ESTIMATIONS.md)** 
+Use it to choose what plugin you want to run for your own translation task. Also you can do your own measures with script here.   
 
 
 ## Known supported translators
