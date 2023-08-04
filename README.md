@@ -16,13 +16,15 @@ Features:
   - We have a plugin that gains translations from multiple sources, then estimate them and return only the best
   - It gains the best COMET translation evaluation score against other plugins. 
 
-[Supported translators](#known-supported-translators)
-[Known usages](#known-usages)
-[Install and run](/docs_md/INSTALL.md)
-[Base settings and plugin logic](/docs_md/SETTINGS.md)
-[Plugin options](/docs_md/PLUGINS.md)
-[API usage](/docs_md/API.md)
-[Statistics for different plugins translation quality (BLEU, COMET) and how to do it yourself](/docs_md/ESTIMATIONS.md)
+## Links
+
+- [Supported translators](#known-supported-translators)
+- [Known OneRingTranslator usages](#known-usages)
+- **[Install and run](/docs_md/INSTALL.md)**
+- [Base settings and plugin logic](/docs_md/SETTINGS.md)
+- [Plugin options](/docs_md/PLUGINS.md)
+- [API usage](/docs_md/API.md)
+- [Statistics for different plugins translation quality (BLEU, COMET) and how to do it yourself](/docs_md/ESTIMATIONS.md)
 
 
 ## Known supported translators
