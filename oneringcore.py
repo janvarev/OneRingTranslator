@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import os
 import json
 
-version = "6.3.0"
+version = "6.4.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):

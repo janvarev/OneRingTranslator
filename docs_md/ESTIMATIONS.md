@@ -101,6 +101,8 @@ COMET scores
 - \* multi_sources with "google_translate,deepl"
 - \** use_mid_lang with "google_translate,deepl"
 
+openrouter_chat with anthropic/claude-2 get a lot of fails ("Can't understand", "Can't translate")
+
 ## Automatic BLEU and COMET estimation
 
 There are builded package to run BLEU and COMET estimation of plugin translation on different languages - so, you usually can reproduce our results.

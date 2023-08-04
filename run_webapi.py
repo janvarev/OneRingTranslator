@@ -8,13 +8,13 @@ import multiprocessing
 
 from starlette.staticfiles import StaticFiles
 
-from oneringcore import OneRingCore
+from oneringcore import OneRingCore, version
 
 import asyncio
 
 app = FastAPI()
 
-version = "2.0"
+webapi_version = "2.1"
 
 core:OneRingCore = None
 
@@ -22,7 +22,7 @@ app.mount("/webapi_client", StaticFiles(directory="webapi_client", html = True),
 
 @app.get("/", response_class=HTMLResponse)
 async def read_items():
-    html_content = """
+    html_content = f"""
     <html>
         <head>
             <meta charset="utf-8" />
@@ -32,11 +32,13 @@ async def read_items():
         </head>
         <body>
             <div id="top" class="container" role="document">
-                <h1>Welcome to OneRingTranslator!</h1>
+                <h1>OneRingTranslator {version}</h1>
                 
-                <a href="/webapi_client" class="button">Simple interface</a><br />
-                <br />
-                <a href="/docs" class="button">API and docs</a>
+                <a href="/webapi_client" class="button">Web interface (simple)</a><br /><br />
+                
+                <a href="/docs" class="button">API and docs</a><br /><br />
+                
+                <a href="https://github.com/janvarev/OneRingTranslator" class="button" target="_blank">Github</a><br /><br />
             </div>
         </body>
     </html>
@@ -162,5 +164,5 @@ async def whois():
 
 if __name__ == "__main__":
     #multiprocessing.freeze_support()
-    print("Running OneRingTranslator server v{0}...".format(version))
+    print("Running OneRingTranslator v{0}, web server v{1}...".format(version, webapi_version))
     uvicorn.run("run_webapi:app", host="127.0.0.1", port=4990, log_level="info")
