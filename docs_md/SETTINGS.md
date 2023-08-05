@@ -42,7 +42,17 @@ Located in `options/core.json` after first run.
     "cache_save_every": 5,  # every X elements save cache to disk
     "default_translate_router": { # routing for default translation engine on different language pairs
         "fr->es": "no_translate", # this is just an example, adjust in to your needs
-        "fr->fn": "no_translate2",
+        "fr->fn": "no_translate2", # asterisk supported like *->fr, all languages to French
     }
 },
 ```
+
+## default_translate_router
+
+default_translate_router define set of rules to calculate what plugin will be used to translate. Asterisk supported
+
+Rules priority:
+1. LangFrom->LangTo (if found, return)
+2. *->LangTo (if found, return)
+3. LangFrom->* (if found, return)
+4. Otherwise, return "default_translate_plugin"

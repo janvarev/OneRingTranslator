@@ -24,7 +24,7 @@ def start(core:OneRingCore):
             "cache_per_model": True, # differentiate cache per model
             "default_translate_router": { # routing for default translation engine on different language pairs
                 "fr->es": "no_translate", # this is just an example, adjust in to your needs
-                "fr->fn": "no_translate2",
+                "fr->fn": "no_translate2", # asterisk supported like *->fr
             }
         },
 

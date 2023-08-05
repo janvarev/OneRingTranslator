@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import os
 import json
 
-version = "7.0.0"
+version = "7.1.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):
@@ -103,10 +103,20 @@ class OneRingCore(JaaCore):
         # 1. Calculating translator plugin
         if translator_plugin == "":
             router_trans = self.default_translate_router.get(f"{from_lang}->{to_lang}")
+            router_ast1 = self.default_translate_router.get(f"*->{to_lang}")
+            router_ast2 = self.default_translate_router.get(f"{from_lang}->*")
             if router_trans is not None:
                 if self.is_debug_input_output:
-                    print("Calculated ROUTER translator: {0}".format(router_trans))
+                    print("Calculated ROUTER -> translator: {0}".format(router_trans))
                 translator_plugin = router_trans
+            elif router_ast1 is not None:
+                if self.is_debug_input_output:
+                    print("Calculated ROUTER *-> translator: {0}".format(router_ast1))
+                translator_plugin = router_ast1
+            elif router_ast2 is not None:
+                if self.is_debug_input_output:
+                    print("Calculated ROUTER ->* translator: {0}".format(router_ast2))
+                translator_plugin = router_ast2
             else:
                 if self.is_debug_input_output:
                     print("Calculated default_translator translator: {0}".format(self.default_translator))
