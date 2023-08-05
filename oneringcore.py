@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import os
 import json
 
-version = "6.4.0"
+version = "7.0.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):
@@ -18,6 +18,8 @@ class OneRingCore(JaaCore):
         self.default_translator:str = ""
         self.default_from_lang:str = ""
         self.default_to_lang:str = ""
+
+        self.default_translate_router:dict[str,str] = {}
 
         self.api_keys_allowed:list = []
 
@@ -98,10 +100,25 @@ class OneRingCore(JaaCore):
         if self.is_debug_input_output:
             print("Input: {0}".format(text))
 
-
+        # 1. Calculating translator plugin
         if translator_plugin == "":
-            translator_plugin = self.default_translator
+            router_trans = self.default_translate_router.get(f"{from_lang}->{to_lang}")
+            if router_trans is not None:
+                if self.is_debug_input_output:
+                    print("Calculated ROUTER translator: {0}".format(router_trans))
+                translator_plugin = router_trans
+            else:
+                if self.is_debug_input_output:
+                    print("Calculated default_translator translator: {0}".format(self.default_translator))
+                translator_plugin = self.default_translator
 
+        # 2. Special case - if ":" in translator_plugin, then try to setup model for this plugin
+        # usually works OK only with online translators
+        if ":" in translator_plugin:
+            translator_plugin,new_model = translator_plugin.split(":",1)
+            self.plugin_options("plugin_"+translator_plugin)["model"] = new_model
+
+        # 3. Calc from_lang and to_lang if they are blank
         if from_lang == "":
             from_lang = self.default_from_lang
 
@@ -118,6 +135,7 @@ class OneRingCore(JaaCore):
             if self.user_lang == "":
                 return {"error": "user_lang is blank. Please, setup it in options/core.json file"}
 
+        # 4. Calculating cache_id. Get result from cache if it exists
         cache_id = self.cache_calc_id(from_lang,to_lang,translator_plugin)
         if self.cache_is_use:
             cache_res = self.cache_get(text,cache_id)
@@ -134,6 +152,7 @@ class OneRingCore(JaaCore):
                 return {"error": "Translator plugin not inited"}
 
 
+        # Actual call translation plugin
         res = self.translators[translator_plugin][1](self, text, from_lang, to_lang, add_params)
 
         if self.is_debug_input_output:
@@ -156,7 +175,12 @@ class OneRingCore(JaaCore):
             if options is not None:
                 model = options.get("model")
                 if model is not None:
-                    model_normalized = str(model).replace("/","_").replace("\\","_").replace(":","_")
+                    model_normalized = str(model)\
+                        .replace("/","_")\
+                        .replace("\\","_")\
+                        .replace(":","_")\
+                        .replace(">","_")\
+                        .replace("<", "_")
                     res += "__"+model_normalized
         return res
 

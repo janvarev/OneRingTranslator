@@ -1,3 +1,6 @@
+import time
+import random
+
 from nltk.translate.bleu_score import sentence_bleu
 
 # ----------
@@ -7,17 +10,21 @@ from oneringcore import OneRingCore
 BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
 BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-#BLEU_PAIRS = "rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
-#BLEU_PAIRS_2LETTERS = "ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
+# BLEU_PAIRS = "jpn->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
+# BLEU_PAIRS_2LETTERS = "ja->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-BLEU_PLUGINS = "no_translate,google_translate,fb_nllb_translate" # plugins to estimate
-#BLEU_PLUGINS = "no_translate2,google_translate,fb_nllb_ctranslate2,openrouter_chat" # plugins to estimate
-#BLEU_PLUGINS = "multi_sources" # plugins to estimate
+#BLEU_PLUGINS = "no_translate2,google_translate,fb_nllb_ctranslate2,openrouter_chat,multi_sources,use_mid_lang" # plugins to estimate, old version
+BLEU_PLUGINS_AR = ["google_translate", "deepl", "multi_sources:google_translate,deepl"]
+    # plugins to estimate, array
+    # now you can run them in format "plugin:model", that works only if plugin support "on-the-fly" model change (usually YES for synthetic and online plugins, and NO for offline)
+
+#BLEU_PLUGINS_AR = ["multi_sources:google_translate,deepl,use_mid_lang:deepl->deepl,use_mid_lang:google_translate->deepl,use_mid_lang:google_translate->google_translate,use_mid_lang:deepl->google_translate"]
+#BLEU_PLUGINS_AR = ["use_mid_lang:deepl->yandex_dev"]
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases
 
-BLEU_METRIC = "bleu" # bleu | comet
+BLEU_METRIC = "comet" # bleu | comet
 
 core:OneRingCore = None
 
@@ -61,17 +68,25 @@ if __name__ == "__main__":
 
     pairs_ar = BLEU_PAIRS.split(",")
     pairs_ar2 = BLEU_PAIRS_2LETTERS.split(",")
-    bleu_plugins_ar = BLEU_PLUGINS.split(",")
+    #bleu_plugins_ar = BLEU_PLUGINS.split(",")
+    bleu_plugins_ar = BLEU_PLUGINS_AR
 
     # adding model in info on final table
     bleu_plugins_ar_model = []
-    for pl in bleu_plugins_ar:
-        res = pl
-        options = core.plugin_options("plugin_" + pl)
-        if options is not None:
-            model = options.get("model")
-            if model is not None:
-                res += " " + model
+    for plugin_str in bleu_plugins_ar:
+        res = plugin_str
+
+        if ":" in plugin_str: # ":" set, so it will be actual model in translation
+            plugin_str, new_model = plugin_str.split(":", 1)
+            res = f"{plugin_str} {new_model}"
+
+        else: # try to calc model name usual way
+            options = core.plugin_options("plugin_" + plugin_str)
+            if options is not None:
+                model = options.get("model")
+                if model is not None:
+                    res += " " + model
+
         bleu_plugins_ar_model.append(res)
 
     table_bleu = [([bleu_plugins_ar_model[i]] + (["-"] * len(pairs_ar))) for i in range(len(bleu_plugins_ar))]
@@ -142,6 +157,9 @@ if __name__ == "__main__":
                     import time
                     import random
                     time.sleep(20 + random.random()*3)
+
+                # if not is_from_cache:
+                #     time.sleep(1 + random.random() * 2)
 
             if BLEU_METRIC == "bleu":
                 bleu_score = bleu_sum / len(from_lines)

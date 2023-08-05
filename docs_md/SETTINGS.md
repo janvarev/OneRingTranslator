@@ -40,6 +40,9 @@ Located in `options/core.json` after first run.
     "user_lang": "", # standart user language. Replaces "user" in to_lang or from_lang API params
     "cache_is_use": True, # use cache?
     "cache_save_every": 5,  # every X elements save cache to disk
- 
+    "default_translate_router": { # routing for default translation engine on different language pairs
+        "fr->es": "no_translate", # this is just an example, adjust in to your needs
+        "fr->fn": "no_translate2",
+    }
 },
 ```

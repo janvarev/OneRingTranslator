@@ -15,7 +15,7 @@ def start(core:OneRingCore):
         "version": "1.1", # version
 
         "default_options": {
-            "model": "google_translate,deepl",  # 1 phase plugin, 2 phase plugin
+            "model": "google_translate->deepl",  # 1 phase plugin, 2 phase plugin
             #  1 phase from lang->mediator lang,
             #  2 phase mediator lang->to lang
             "mid_lang": "en",
@@ -34,7 +34,7 @@ def init(core:OneRingCore):
     pass
 
 def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", add_params:str = ""):
-    plugins: str = core.plugin_options(modname).get("model").split(",")
+    plugins: str = core.plugin_options(modname).get("model").split("->")
     mid_lang: str = core.plugin_options(modname).get("mid_lang")
     res1 = core.translate(text,from_lang,mid_lang,plugins[0]).get("result")
     #print(from_lang,mid_lang,res1)

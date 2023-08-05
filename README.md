@@ -14,7 +14,8 @@ Features:
   - If you have your own plugin - you can compare it with others!  
 - **Unique World Best results by multi_sources plugin!**
   - We have a plugin that gains translations from multiple sources, then estimate them and return only the best
-  - It gains the best COMET translation evaluation score against other plugins. 
+  - It gains the best COMET translation evaluation score against other plugins.
+- **Translation routing** Use different translation engines on different language pairs.
 
 ## Links
 
@@ -22,8 +23,8 @@ Features:
 - [Known OneRingTranslator usages](#known-usages)
 - **[Install and run](/docs_md/INSTALL.md)**
 - [Base settings and plugin logic](/docs_md/SETTINGS.md)
-- [Plugin options](/docs_md/PLUGINS.md)
-- [API usage examples](/docs_md/API.md)
+- [Plugins options](/docs_md/PLUGINS.md)
+- [REST API usage examples](/docs_md/API.md)
 - **[Rating plugins translation quality (BLEU, COMET)](/docs_md/ESTIMATIONS.md)** 
 Use it to choose what plugin you want to run for your own translation task. Also you can do your own measures with script here.   
 

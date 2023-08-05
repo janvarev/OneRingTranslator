@@ -51,7 +51,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | lingvanex                                                        |      87.92 |      86.99 |      84.75 |       86.3|
 | fb_nllb_translate nllb-200-distilled-1.3B                        |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16       |      88.74 |      88.32 |      87.25 |      88.83|
-| google_translate                                                 |  **89.67** |      88.9  |      87.53 | 89.63     |
+| google_translate                                                 |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                            |      89.39 |      89.27 |  **87.93** |      89.82|
 | openrouter_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
 | openrouter_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
@@ -91,17 +91,29 @@ COMET scores
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16               |      86.46 |
 | google_translate                                                         |      87.93 |
 | deepl                                                                    |      88.11 |
-| use_mid_lang google_translate,deepl                                      |      88.37 |
-| use_mid_lang google_translate,google_translate                           |      87.67 |
-| use_mid_lang deepl,deepl                                                 |      88.43 |
+| use_mid_lang deepl->yandex_dev                                           |      87.56 |
+| use_mid_lang google_translate->deepl                                     |      88.37 |
+| use_mid_lang google_translate->google_translate                          |      87.67 |
+| use_mid_lang deepl->deepl                                                |      88.43 |
 | multi_sources google_translate,deepl                                     |      88.88 |
-| use_mid_lang multi_sources,multi_sources*                                |       88.9 |
+| use_mid_lang multi_sources->multi_sources*                               |       88.9 |
 | multi_sources google_translate,deepl,use_mid_lang**                      |      89.05 |
 
 - \* multi_sources with "google_translate,deepl"
 - \** use_mid_lang with "google_translate,deepl"
 
 openrouter_chat with anthropic/claude-2 get a lot of fails ("Can't understand", "Can't translate")
+
+More results on different multi_sources settings:
+
+|                                                                                                                           |   jpn->rus |
+|---------------------------------------------------------------------------------------------------------------------------|------------|
+| multi_sources google_translate,deepl,use_mid_lang:google_translate->deepl,use_mid_lang:google_translate->google_translate |      89.05 |
+| multi_sources google_translate,deepl,use_mid_lang:google_translate->deepl,use_mid_lang:deepl->deepl                       |      89.15 |
+| multi_sources google_translate,deepl,use_mid_lang:deepl->deepl                                                            |      89.04 |
+| multi_sources****                                                                                                         |      89.25 |
+
+\**** model: google_translate,deepl,use_mid_lang:deepl->deepl,use_mid_lang:google_translate->deepl,use_mid_lang:google_translate->google_translate,use_mid_lang:deepl->google_translate 
 
 ## Automatic BLEU and COMET estimation
 
@@ -124,7 +136,9 @@ Settings params:
 BLEU_PAIRS = "fra->eng,eng->fra,rus->eng,eng->rus" # pairs of language in terms of FLORES dataset https://huggingface.co/datasets/gsarti/flores_101/viewer
 BLEU_PAIRS_2LETTERS = "fr->en,en->fr,ru->en,en->ru" # pairs of language codes that will be passed to plugin (from_lang, to_lang params)
 
-BLEU_PLUGINS = "no_translate,google_translate" # plugins to estimate, separated by ,
+BLEU_PLUGINS_AR = ["google_translate", "deepl", "multi_sources:google_translate,deepl"] 
+    # plugins to estimate, array
+    # now you can run them in format "plugin:model", that works only if plugin support "on-the-fly" model change (usually YES for synthetic and online plugins, and NO for offline)
 
 BLEU_NUM_PHRASES = 100 # num of phrases to estimate. Between 1 and 100 for now.
 BLEU_START_PHRASE = 150 # offset from FLORES dataset to get NUM phrases

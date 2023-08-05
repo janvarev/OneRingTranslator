@@ -7,8 +7,10 @@ from oneringcore import OneRingCore
 def start(core:OneRingCore):
     manifest = {
         "name": "Core plugin",
-        "version": "1.3",
+        "version": "1.4",
 
+        # this is DEFAULT options
+        # ACTUAL options located in options/<plugin_name>.json after first run
         "default_options": {
             "default_translate_plugin": "google_translate", # default translation engine
             "default_from_lang": "es", # default from language
@@ -20,6 +22,10 @@ def start(core:OneRingCore):
             "cache_is_use": True, # use cache?
             "cache_save_every": 5,  # every X elements save cache to disk
             "cache_per_model": True, # differentiate cache per model
+            "default_translate_router": { # routing for default translation engine on different language pairs
+                "fr->es": "no_translate", # this is just an example, adjust in to your needs
+                "fr->fn": "no_translate2",
+            }
         },
 
     }
@@ -32,6 +38,8 @@ def start_with_options(core:OneRingCore, manifest:dict):
     core.default_translator = options["default_translate_plugin"]
     core.default_from_lang = options["default_from_lang"]
     core.default_to_lang = options["default_to_lang"]
+    core.default_translate_router = options["default_translate_router"]
+
     core.api_keys_allowed = options["api_keys_allowed"]
 
     core.is_multithread = options["allow_multithread"]
