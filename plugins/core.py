@@ -10,7 +10,7 @@ def start(core:OneRingCore):
         "version": "1.4",
 
         # this is DEFAULT options
-        # ACTUAL options located in options/<plugin_name>.json after first run
+        # ACTUAL options is in options/<plugin_name>.json after first run
         "default_options": {
             "default_translate_plugin": "google_translate", # default translation engine
             "default_from_lang": "es", # default from language

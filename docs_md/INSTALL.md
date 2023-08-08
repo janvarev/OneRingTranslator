@@ -25,7 +25,7 @@ Visit docs and simple Web interface: http://127.0.0.1:4990/
 If you plan to use **offline** translation:
 - Run webapi at least one time.
 - Open file `options/core.json`
-- Set `"default_translate_plugin": "fb_nllb_translate"`, and save file 
+- Set `"default_translate_plugin": "fb_nllb_translate"`, `"allow_multithread": false,`  and save file 
 - Run. During the first run neuronet model will be downloaded from huggingface hub, it takes time
 
 - **You're done!**

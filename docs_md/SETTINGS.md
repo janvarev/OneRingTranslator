@@ -1,5 +1,7 @@
 # Description and settings
 
+If you have problems, please check "Multithread mode (IMPORTANT)" section
+
 ## Translation-through-plugins logic
 
 Different translation servers (Google Translate, DeepL, Libre, local FB NLLB translation) are supported through **plugins**. There are several in plugins folder. 
@@ -56,3 +58,13 @@ Rules priority:
 2. *->LangTo (if found, return)
 3. LangFrom->* (if found, return)
 4. Otherwise, return "default_translate_plugin"
+
+## Multithread mode (IMPORTANT)
+
+There are
+`"allow_multithread": True, # allow multithread run of translation engine`
+option in `options/core.json`
+
+Rules:
+- ENABLE it if you use ONLY online plugins
+- DISABLE it if you use offline plugins, or "multi_sources" (they use neuronet processing, and can't be run in parallel) 

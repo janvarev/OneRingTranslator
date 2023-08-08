@@ -7,25 +7,6 @@ import openai
 from oneringcore import OneRingCore
 
 import json
-import os
-import openai
-
-# ---------- from https://github.com/stancsz/chatgpt ----------
-class ChatApp:
-    def __init__(self, model="gpt-3.5-turbo", load_file='', system=''):
-        # Setting the API key to use the OpenAI API
-        self.model = model
-        self.messages = []
-        if system != '':
-            self.messages.append({"role": "system", "content" : system})
-        if load_file != '':
-            self.load(load_file)
-
-    def chat(self, message):
-        self.messages.append({"role": "user", "content": message})
-        print(self.messages)
-        self.messages.append({"role": "assistant", "content": response["choices"][0]["message"].content})
-        return response["choices"][0]["message"]
 
 modname = os.path.basename(__file__)[:-3] # calculating modname
 
@@ -42,6 +23,8 @@ def start(core:OneRingCore):
             "system": "System input string."
         },
 
+        # this is DEFAULT options
+        # ACTUAL options is in options/<plugin_name>.json after first run
         "default_options": {
             "apiKey": "", #
             "apiBaseUrl": "https://openrouter.ai/api/v1",  #
@@ -67,12 +50,12 @@ def init(core:OneRingCore):
         raise ValueError("Needed API KEY for access")
 
     openai.api_key = options["apiKey"]
+
     if options["apiBaseUrl"] != "":
         openai.api_base = options["apiBaseUrl"]
 
 
 def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", add_params:str = ""):
-
     options = core.plugin_options(modname)
 
     from_full_lang = core.dict_2let_to_lang.get(from_lang)
@@ -102,6 +85,6 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     #response = core.chatapp.chat(prompt)  # generate_response(phrase)
     #print(response)
     res = str(response["content"]).strip()
-    print(res)
+    #print(res)
     return res
 

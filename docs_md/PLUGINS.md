@@ -151,7 +151,16 @@ Uses COMET-no-reference neuronet model to find best result.
 **Required:** `pip install unbabel-comet`
 
 Options
-- `model` list of plugins to get translations (named model due to easy labeling reasons)  
+```python
+"default_options": {
+    "model": "google_translate,deepl",  # plugins that will be processed
+    "min_symbols_to_full_model": 30,
+    "min_plugin": "google_translate", # if symbols less than min, this will be used
+    "multithread_model": True, # use this if you use different plugins in model - this speedup by multithread tasks
+},
+```
+
+
 
 ### More plugins
 
