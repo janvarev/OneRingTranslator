@@ -7,12 +7,13 @@ from oneringcore import OneRingCore
 def start(core:OneRingCore):
     manifest = {
         "name": "Core plugin",
-        "version": "1.4",
+        "version": "1.5",
 
         # this is DEFAULT options
         # ACTUAL options is in options/<plugin_name>.json after first run
         "default_options": {
-            "default_translate_plugin": "google_translate", # default translation engine
+            "default_translate_plugin": "google_translate", # default translation engine. Will be auto inited on start
+            "init_on_start": "",  # additional list of engines, that must be init on start, separated by ","
             "default_from_lang": "es", # default from language
             "default_to_lang": "en", # default to language
             "api_keys_allowed": [], # set of API keys. If empty - no API key required.
@@ -50,5 +51,7 @@ def start_with_options(core:OneRingCore, manifest:dict):
     core.cache_is_use = options["cache_is_use"]
     core.cache_save_every = options["cache_save_every"]
     core.cache_per_model = options["cache_per_model"]
+
+    core.init_on_start = options["init_on_start"]
 
     return manifest

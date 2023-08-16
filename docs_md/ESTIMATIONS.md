@@ -59,6 +59,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | multi_sources google_translate,deepl                             |      89.66 |  **89.85** |       87.8 |      90.42|
 | multi_sources google_translate,deepl,openrouter_chat*            |      89.66 |  **89.85** |      87.76 |     90.67 |
 | yandex_dev                                                       |      ----- |      ----- |      87.34 | 90.27     |
+| multi_sources google_translate,yandex_dev                        |      ----- |      ----- |      87.64 |      90.39|
 | multi_sources deepl,yandex_dev                                   |      ----- |      ----- |      87.64 | 90.62     |
 | multi_sources google_translate,deepl,yandex_dev                  |      ----- |      ----- |      87.74 | 90.63     |
 | multi_sources google_translate,deepl,yandex_dev,openrouter_chat* |      ----- |      ----- |      87.71 | 90.66     |

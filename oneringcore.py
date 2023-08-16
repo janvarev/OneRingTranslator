@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import os
 import json
 
-version = "7.2.0"
+version = "7.3.0"
 
 class OneRingCore(JaaCore):
     def __init__(self):
@@ -25,6 +25,8 @@ class OneRingCore(JaaCore):
 
         self.is_debug_input_output:bool = False
         self.is_multithread:bool = True
+
+        self.init_on_start:str = ""
 
         self.user_lang:str = ""
 
@@ -57,6 +59,11 @@ class OneRingCore(JaaCore):
         self.display_init_info()
 
         self.init_translator_engine(self.default_translator)
+
+        ar_init_on_start = self.init_on_start.split(",")
+        for translator in ar_init_on_start:
+            if translator != "":
+                self.init_translator_engine(translator)
 
     # ------------ formatting stuff -------------------
     def display_init_info(self):

@@ -33,7 +33,8 @@ Located in `options/core.json` after first run.
 
 ```python
 {
-    "default_translate_plugin": "google_translate", # default translation engine
+    "default_translate_plugin": "google_translate", # default translation engine. Will be auto inited on start
+    "init_on_start": "",  # additional list of engines, that must be init on start, separated by ","
     "default_from_lang": "es", # default from language
     "default_to_lang": "en", # default to language
     "api_keys_allowed": [], # set of API keys. If empty - no API key required.
