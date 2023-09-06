@@ -116,23 +116,23 @@ In `system` and `prompt` {0}, {1} and {2} will be replaced to:
 - en name of target lang
 - text to translate
 
-### openrouter_chat
+### vsegpt_chat
 
-Translate by OpenRouter https://openrouter.ai/
+Translate by [VseGPT](https://vsegpt.ru/)
 
 Default options:
 ```python
 "default_options": {
       "apiKey": "", #
-      "apiBaseUrl": "https://openrouter.ai/api/v1",  #
+      "apiBaseUrl": "",  #
       "system": "Please translate the user message from {0} to {1}. Make the translation sound as natural as possible. Don't use any non-related phrases in result, answer with only translation text.",
       "prompt": "{2}",
       "model": "",
   },
 ```
 Description:
-- "apiKey": "API-key OpenRouter", #
-- "apiBaseUrl": "URL for OpenRouter",  #
+- "apiKey": "API-key VseGPT", #
+- "apiBaseUrl": "URL for VseGPT",  #
 - "system": "System input string."
 - "prompt": prompt
 - "model": model,

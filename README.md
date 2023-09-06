@@ -42,14 +42,12 @@ Use it to choose what plugin you want to run for your own translation task. Also
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - Yandex translation ([through browser manipulation](https://github.com/janvarev/onering_plugins_chrome_dev))
 - [Lingvanex](https://lingvanex.com/)
-- Translation via [OpenRouter](https://openrouter.ai/) LLM online models (require API key):
+- Translation via [VseGPT](https://vsegpt.ru/) LLM online models (require API key):
   - ChatGPT
   - GPT-4
   - Claude Instant v1
-  - Claude v1
   - Claude v2
   - Google: PaLM 2 Bison
-  - TII: Falcon 40B Instruct
 
 ### Offline
 
