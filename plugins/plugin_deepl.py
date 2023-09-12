@@ -38,7 +38,7 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     api_key:str = core.plugin_options(modname).get("api_key")
     #print(custom_url)
     #res = LibreTranslator(source=from_lang, target=to_lang, custom_url=custom_url).translate(text)
-    res = DeeplTranslator(api_key, use_free_api=is_free, source=from_lang, target=to_lang).translate(text)
+    res = DeeplTranslator(api_key=api_key, use_free_api=is_free, source=from_lang, target=to_lang).translate(text)
 
 
     return res
