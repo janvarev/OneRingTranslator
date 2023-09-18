@@ -64,6 +64,7 @@ Use it to choose what plugin you want to run for your own translation task. Also
   - Otherwise, you can connect through this interface to local OpenAI emulation servers.
 - No Translate (offline) - dummy translator to compare with
 - Opus MT
+- Bloomz (https://huggingface.co/bigscience/bloomz-1b7)
 
 ### Synthetic 
 
