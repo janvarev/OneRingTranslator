@@ -49,6 +49,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | opus_mt Helsinki-NLP/opus-mt-en-ru                           |      ----- |      ----- |      ----- |      82.22|
 | libre_translate                                              |      86.66 |      82.36 |      80.36 | 83.34     |
 | lingvanex                                                    |      87.92 |      86.99 |      84.75 |       86.3|
+| bloomz bigscience/bloomz-1b7                                 |      87.86 |       84.1 |      ----- |     ----- |
 | fb_nllb_translate nllb-200-distilled-1.3B                    |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16   |      88.74 |      88.32 |      87.25 |      88.83|
 | google_translate                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
