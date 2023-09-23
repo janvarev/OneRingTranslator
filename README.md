@@ -77,7 +77,8 @@ Use it to choose what plugin you want to run for your own translation task. Also
 - https://github.com/janvarev/multi_translate - oobabooga/text-generation-webui plugin for translate conversation with LLM (Large Language Models) UserLanguage<->English
 - https://github.com/janvarev/privateGPT - privateGPT multilanguage fork
 - You can use it with https://github.com/translate-tools/linguist Web browser translation to translate web pages
-  - You'll need to add custom translator with this JS code: https://gist.github.com/janvarev/314b13e4d44d5a0cc349385ee85a4f58 
+  - You'll need to add custom translator with this JS code: https://gist.github.com/janvarev/314b13e4d44d5a0cc349385ee85a4f58
+- https://github.com/SillyTavern/SillyTavern - multi-LLM frontend
 
 
 
