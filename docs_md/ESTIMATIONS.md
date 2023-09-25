@@ -1,4 +1,4 @@
-## Average BLEU and COMET results for translation quality
+## Average results for translation quality
 
 **BLEU (bilingual evaluation understudy)** is an automatic algorithm for evaluating the quality of text which has been machine-translated from one natural language to another.
 
@@ -8,7 +8,9 @@
 
 Use this results just for reference.
 
-**BLEU scores** (higher is better, no_translate can be used as baseline. Average on 100 examples from FLORES, offset = 150):
+### BLEU scores 
+
+Higher is better, no_translate can be used as baseline. Average on 100 examples from FLORES, offset = 150:
 
 |                                                                |   fra->eng |   eng->fra |   rus->eng |   eng->rus |
 |----------------------------------------------------------------|------------|------------|------------|------------|
@@ -40,7 +42,9 @@ Use this results just for reference.
 - 'koboldapi_translate' on 'eng->rus' pair average BLEU score:     7.00: 80/100
 on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for input prompt needed
 
-**COMET scores** (higher is better, no_translate2 can be used as baseline. Average on 100 examples from FLORES, offset = 150):
+### COMET scores  
+
+Higher is better, no_translate2 can be used as baseline. Average on 100 examples from FLORES, offset = 150:
 
 |                                                              |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
 |--------------------------------------------------------------|------------|------------|------------|-----------|
@@ -50,11 +54,13 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 | libre_translate                                              |      86.66 |      82.36 |      80.36 | 83.34     |
 | lingvanex                                                    |      87.92 |      86.99 |      84.75 |       86.3|
 | bloomz bigscience/bloomz-1b7                                 |      87.86 |       84.1 |      ----- |     ----- |
+| koboldapi_translate NikolayKozloff/ALMA-13B-GGUF             |      ----- |      ----- |      84.64 |      87.92|
 | fb_nllb_translate nllb-200-distilled-1.3B                    |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16   |      88.74 |      88.32 |      87.25 |      88.83|
 | google_translate                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                        |      89.39 |      89.27 |  **87.93** |      89.82|
 | vsegpt_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
+| vsegpt_chat openai/gpt-3.5-turbo                             |      ----- |      ----- |      86.87 |      88.76|
 | vsegpt_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
 | vsegpt_chat anthropic/claude-2                               |      89.27 |      89.17 |      87.47 | 89.85     |
 | multi_sources google_translate,deepl                         |      89.66 |  **89.85** |       87.8 |      90.42|
@@ -70,7 +76,7 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
-**Chain translation results (use_mid_lang plugin)**
+### Chain translation results (use_mid_lang plugin)
 
 Chain translation allow to translate phrases with mid-language (usually English)
 
