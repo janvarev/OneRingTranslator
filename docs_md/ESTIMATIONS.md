@@ -61,6 +61,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | deepl                                                        |      89.39 |      89.27 |  **87.93** |      89.82|
 | vsegpt_chat anthropic/claude-instant-v1                      |      ----- |      ----- |      85.73 | 88.13     |
 | vsegpt_chat openai/gpt-3.5-turbo                             |      ----- |      ----- |      86.87 |      88.76|
+| vsegpt_chat openai/gpt-3.5-turbo-instruct                    |      ----- |      ----- | 85.23      |      87.46|
 | vsegpt_chat openai/gpt-4                                     |      ----- |      ----- |      87.02 | 89.54     |
 | vsegpt_chat anthropic/claude-2                               |      89.27 |      89.17 |      87.47 | 89.85     |
 | multi_sources google_translate,deepl                         |      89.66 |  **89.85** |       87.8 |      90.42|
