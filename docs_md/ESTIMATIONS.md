@@ -44,6 +44,8 @@ on IlyaGusev-saiga_7b_lora_llamacpp-ggml-model-q4_1.bin, may be adjusting for in
 
 ### COMET scores  
 
+SOTA for opensource realization: multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2 - this comparable to DeepL and Google Translate
+
 Higher is better, no_translate2 can be used as baseline. Average on 100 examples from FLORES, offset = 150:
 
 |                                                                                |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
@@ -57,8 +59,8 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | koboldapi_translate NikolayKozloff/ALMA-13B-GGUF                               |      ----- |      ----- |      84.64 |      87.92|
 | fb_nllb_translate nllb-200-distilled-1.3B                                      |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16                     |      88.74 |      88.32 |      87.25 |      88.83|
-| vsegpt_chat lizpreciatior/lzlv-70b-fp16-hf                                     |      ----- |      ----- |      ----- |      88.15|
-| multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2   |      ----- |      ----- |      ----- |      89.87|
+| vsegpt_chat lizpreciatior/lzlv-70b-fp16-hf                                     |      88.69 |      87.17 |      86.91 |      88.15|
+| multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2   |      89.14 |      88.22 |      87.22 |      89.87|
 | google_translate                                                               |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                                          |      89.39 |      89.27 |  **87.93** |      89.82|
 | vsegpt_chat anthropic/claude-instant-v1                                        |      ----- |      ----- |      85.73 | 88.13     |
