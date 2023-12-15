@@ -2,6 +2,8 @@
 # author: Vladislav Janvarev
 
 import os
+import time
+
 import openai
 
 from oneringcore import OneRingCore
@@ -14,7 +16,7 @@ modname = os.path.basename(__file__)[:-3] # calculating modname
 def start(core:OneRingCore):
     manifest = {
         "name": "Translation through VseGPT",
-        "version": "1.0",
+        "version": "1.1",
         "description": "After define apiKey allow to translate through VseGPT.",
 
         "options_label": {
@@ -43,48 +45,6 @@ def start(core:OneRingCore):
 def start_with_options(core:OneRingCore, manifest:dict):
     pass
 
-## ------------- special code to disable SSL verify (bypass SSL errors) -------------------
-
-import warnings
-import contextlib
-
-import requests
-from urllib3.exceptions import InsecureRequestWarning
-
-old_merge_environment_settings = requests.Session.merge_environment_settings
-
-@contextlib.contextmanager
-def no_ssl_verification():
-    opened_adapters = set()
-
-    def merge_environment_settings(self, url, proxies, stream, verify, cert):
-        # Verification happens only once per connection so we need to close
-        # all the opened adapters once we're done. Otherwise, the effects of
-        # verify=False persist beyond the end of this context manager.
-        opened_adapters.add(self.get_adapter(url))
-
-        settings = old_merge_environment_settings(self, url, proxies, stream, verify, cert)
-        settings['verify'] = False
-
-        return settings
-
-    requests.Session.merge_environment_settings = merge_environment_settings
-
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter('ignore', InsecureRequestWarning)
-            yield
-    finally:
-        requests.Session.merge_environment_settings = old_merge_environment_settings
-
-        for adapter in opened_adapters:
-            try:
-                adapter.close()
-            except:
-                pass
-
-## ------------- end special code to disable SSL verify (bypass SSL errors) -------------------
-
 def init(core:OneRingCore):
     options = core.plugin_options(modname)
 
@@ -111,21 +71,32 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
     messages.append({"role": "system", "content": system_text})
     messages.append({"role": "user", "content": prompt})
 
-    with no_ssl_verification():
+    # with no_ssl_verification():
+    try:
         response_big = openai.ChatCompletion.create(
             model=str(options["model"]),
             messages=messages,
-            temperature=0.7,
+            temperature=0.05,
+            # temperature=0.5,
+            top_p=0.95,
+            n=1,
+            max_tokens=int(len(prompt) * 1.5),
+        )
+    except openai.error.RateLimitError as e: # in case of rate limit error
+        #
+        time.sleep(2.0)
+        response_big = openai.ChatCompletion.create(
+            model=str(options["model"]),
+            messages=messages,
+            temperature=0.05,
+            # temperature=0.5,
+            top_p=0.95,
             n=1,
             max_tokens=int(len(prompt) * 1.5),
         )
     #print("Response BIG:",response_big)
     response = response_big["choices"][0]["message"]
 
-    #core.chatapp = ChatApp(model=str(options["model"]),system=system_text) # create new chat
-
-    #response = core.chatapp.chat(prompt)  # generate_response(phrase)
-    #print(response)
     res = str(response["content"]).strip()
     #print(res)
     return res

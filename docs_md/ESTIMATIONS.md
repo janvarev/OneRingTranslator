@@ -48,34 +48,36 @@ SOTA for opensource realization: multi_sources vsegpt_chat:lizpreciatior/lzlv-70
 
 Higher is better, no_translate2 can be used as baseline. Average on 100 examples from FLORES, offset = 150:
 
-|                                                                                |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
-|--------------------------------------------------------------------------------|------------|------------|------------|-----------|
-| no_translate2                                                                  |      31.66 |      32.06 |      33.03 | 25.58     |
-| no_translate                                                                   |      79.2  |      70.19 |       69.3 |      44.82|
-| opus_mt Helsinki-NLP/opus-mt-en-ru                                             |      ----- |      ----- |      ----- |      82.22|
-| libre_translate                                                                |      86.66 |      82.36 |      80.36 | 83.34     |
-| lingvanex                                                                      |      87.92 |      86.99 |      84.75 |       86.3|
-| bloomz bigscience/bloomz-1b7                                                   |      87.86 |       84.1 |      ----- |     ----- |
-| koboldapi_translate NikolayKozloff/ALMA-13B-GGUF                               |      ----- |      ----- |      84.64 |      87.92|
-| fb_nllb_translate nllb-200-distilled-1.3B                                      |      89.01 |      87.95 |      86.91 | 88.57     |
-| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16                     |      88.74 |      88.32 |      87.25 |      88.83|
-| vsegpt_chat lizpreciatior/lzlv-70b-fp16-hf                                     |      88.69 |      87.17 |      86.91 |      88.15|
-| multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2   |      89.14 |      88.22 |      87.22 |      89.87|
-| google_translate                                                               |  **89.69** |      88.9  |      87.53 | 89.63     |
-| deepl                                                                          |      89.39 |      89.27 |  **87.93** |      89.82|
-| vsegpt_chat anthropic/claude-instant-v1                                        |      ----- |      ----- |      85.73 | 88.13     |
-| vsegpt_chat openai/gpt-3.5-turbo                                               |      ----- |      ----- |      86.87 |      88.76|
-| vsegpt_chat openai/gpt-3.5-turbo-instruct                                      |      ----- |      ----- | 85.23      |      87.46|
-| vsegpt_chat openai/gpt-4                                                       |      ----- |      ----- |      87.02 | 89.54     |
-| vsegpt_chat anthropic/claude-2                                                 |      89.27 |      89.17 |      87.47 | 89.85     |
-| multi_sources google_translate,deepl                                           |      89.66 |  **89.85** |       87.8 |      90.42|
-| multi_sources google_translate,deepl,vsegpt_chat*                              |      89.66 |  **89.85** |      87.76 |     90.67 |
-| yandex_dev                                                                     |      ----- |      ----- |      87.34 | 90.27     |
-| multi_sources google_translate,yandex_dev                                      |      ----- |      ----- |      87.64 |      90.39|
-| multi_sources deepl,yandex_dev                                                 |      ----- |      ----- |      87.64 | 90.62     |
-| multi_sources google_translate,deepl,yandex_dev                                |      ----- |      ----- |      87.74 | 90.63     |
-| multi_sources google_translate,deepl,yandex_dev,vsegpt_chat*                   |      ----- |      ----- |      87.71 | 90.66     |
-| multi_sources deepl,yandex_dev,vsegpt_chat*                                    |      ----- |      ----- |      87.67 | **90.77** |
+|                                                                              |   fra->eng |   eng->fra |   rus->eng | eng->rus  |
+|------------------------------------------------------------------------------|------------|------------|------------|-----------|
+| no_translate2                                                                |      31.66 |      32.06 |      33.03 | 25.58     |
+| no_translate                                                                 |      79.2  |      70.19 |       69.3 |      44.82|
+| opus_mt Helsinki-NLP/opus-mt-en-ru                                           |      ----- |      ----- |      ----- |      82.22|
+| libre_translate                                                              |      86.66 |      82.36 |      80.36 | 83.34     |
+| lingvanex                                                                    |      87.92 |      86.99 |      84.75 |       86.3|
+| bloomz bigscience/bloomz-1b7                                                 |      87.86 |       84.1 |      ----- |     ----- |
+| koboldapi_translate NikolayKozloff/ALMA-13B-GGUF                             |      ----- |      ----- |      84.64 |      87.92|
+| fb_nllb_translate nllb-200-distilled-1.3B                                    |      89.01 |      87.95 |      86.91 | 88.57     |
+| fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16                   |      88.74 |      88.32 |      87.25 |      88.83|
+| vsegpt_chat mistralai/mixtral-8x7b-instruct                                  |      88.45 |       87.2 |      86.94 |      87.85|
+| vsegpt_chat lizpreciatior/lzlv-70b-fp16-hf                                   |      88.69 |      87.17 |      86.91 |      88.15|
+| multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2 |      89.14 |      88.22 |      87.22 |      89.87|
+| google_translate                                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
+| deepl                                                                        |      89.39 |      89.27 |  **87.93** |      89.82|
+| vsegpt_chat anthropic/claude-instant-v1                                      |      ----- |      ----- |      85.73 | 88.13     |
+| vsegpt_chat openai/gpt-3.5-turbo                                             |      ----- |      ----- |      86.87 |      88.76|
+| vsegpt_chat openai/gpt-3.5-turbo-instruct                                    |      ----- |      ----- | 85.23      |      87.46|
+| vsegpt_chat openai/gpt-4                                                     |      ----- |      ----- |      87.02 | 89.54     |
+| vsegpt_chat openai/gpt-4-1106-preview                                        |      ----- |      ----- |      ----- |      89.85|
+| vsegpt_chat anthropic/claude-2                                               |      89.27 |      89.17 |      87.47 | 89.85     |
+| multi_sources google_translate,deepl                                         |      89.66 |  **89.85** |       87.8 |      90.42|
+| multi_sources google_translate,deepl,vsegpt_chat*                            |      89.66 |  **89.85** |      87.76 |     90.67 |
+| yandex_dev                                                                   |      ----- |      ----- |      87.34 | 90.27     |
+| multi_sources google_translate,yandex_dev                                    |      ----- |      ----- |      87.64 |      90.39|
+| multi_sources deepl,yandex_dev                                               |      ----- |      ----- |      87.64 | 90.62     |
+| multi_sources google_translate,deepl,yandex_dev                              |      ----- |      ----- |      87.74 | 90.63     |
+| multi_sources google_translate,deepl,yandex_dev,vsegpt_chat*                 |      ----- |      ----- |      87.71 | 90.66     |
+| multi_sources deepl,yandex_dev,vsegpt_chat*                                  |      ----- |      ----- |      87.67 | **90.77** |
 
 \* vsegpt_chat with anthropic/claude-2
 

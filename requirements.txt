@@ -1,6 +1,5 @@
 # Translation
 deep-translator==1.11.4
-openai
 
 # Web server
 uvicorn
@@ -12,3 +11,4 @@ termcolor
 
 # some plugins
 websocket-client
+openai==0.28.1
