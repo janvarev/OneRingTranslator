@@ -70,6 +70,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat openai/gpt-4                                                     |      ----- |      ----- |      87.02 | 89.54     |
 | vsegpt_chat openai/gpt-4-1106-preview                                        |      ----- |      ----- |      ----- |      89.85|
 | vsegpt_chat anthropic/claude-2                                               |      89.27 |      89.17 |      87.47 | 89.85     |
+| vsegpt_chat google/gemini-pro                                                |      ----- |      ----- |      ----- |      89.69|
 | multi_sources google_translate,deepl                                         |      89.66 |  **89.85** |       87.8 |      90.42|
 | multi_sources google_translate,deepl,vsegpt_chat*                            |      89.66 |  **89.85** |      87.76 |     90.67 |
 | yandex_dev                                                                   |      ----- |      ----- |      87.34 | 90.27     |
