@@ -56,6 +56,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | libre_translate                                                              |      86.66 |      82.36 |      80.36 | 83.34     |
 | lingvanex                                                                    |      87.92 |      86.99 |      84.75 |       86.3|
 | bloomz bigscience/bloomz-1b7                                                 |      87.86 |       84.1 |      ----- |     ----- |
+| vsegpt_chat recursal/eagle-7b                                                |      87.18 |      83.67 |      84.56 |      75.94|
 | koboldapi_translate NikolayKozloff/ALMA-13B-GGUF                             |      ----- |      ----- |      84.64 |      87.92|
 | fb_nllb_translate nllb-200-distilled-1.3B                                    |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16                   |      88.74 |      88.32 |      87.25 |      88.83|
