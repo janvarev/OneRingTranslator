@@ -25,7 +25,7 @@ Features:
 - [Base settings and plugin logic](/docs_md/SETTINGS.md)
 - [Plugins options](/docs_md/PLUGINS.md)
 - [REST API usage examples](/docs_md/API.md)
-- **[Rating plugins translation quality (BLEU, COMET)](/docs_md/ESTIMATIONS.md)** 
+- **[Benchmarks (BLEU, COMET) for plugins translation quality](/docs_md/ESTIMATIONS.md)** 
 Use it to choose what plugin you want to run for your own translation task. Also you can do your own measures with script here.   
 
 
