@@ -80,7 +80,7 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
             # temperature=0.5,
             top_p=0.95,
             n=1,
-            max_tokens=int(len(prompt) * 1.5),
+            max_tokens=int(len(prompt) * 6),
             headers={"X-Title": "OneRingTranslator"},
         )
     except openai.error.RateLimitError as e: # in case of rate limit error
@@ -93,12 +93,12 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
             # temperature=0.5,
             top_p=0.95,
             n=1,
-            max_tokens=int(len(prompt) * 1.5),
+            max_tokens=int(len(prompt) * 6),
             headers={"X-Title": "OneRingTranslator"},
         )
     except openai.error.APIError as e: # in case of server error
         #
-        if e.code > 499: # something on server, try once more
+        if e.http_status > 499: # something on server, try once more
             time.sleep(2.0)
             response_big = openai.ChatCompletion.create(
                 model=str(options["model"]),
@@ -107,7 +107,7 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
                 # temperature=0.5,
                 top_p=0.95,
                 n=1,
-                max_tokens=int(len(prompt) * 1.5),
+                max_tokens=int(len(prompt) * 6),
                 headers={"X-Title": "OneRingTranslator"},
             )
         else:
