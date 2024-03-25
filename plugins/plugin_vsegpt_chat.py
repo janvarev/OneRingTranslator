@@ -98,7 +98,7 @@ def translate(core:OneRingCore, text:str, from_lang:str = "", to_lang:str = "", 
         )
     except openai.error.APIError as e: # in case of server error
         #
-        if e.http_status > 499: # something on server, try once more
+        if e.http_status > 499 or e.http_status == 430: # something on server, try once more
             time.sleep(2.0)
             response_big = openai.ChatCompletion.create(
                 model=str(options["model"]),
