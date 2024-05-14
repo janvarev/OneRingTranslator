@@ -77,6 +77,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat anthropic/claude-3-haiku                                         |      ----- |      ----- |      ----- |       89.5|
 | vsegpt_chat anthropic/claude-3-sonnet                                        |      ----- |      ----- |      ----- |      89.49|
 | vsegpt_chat anthropic/claude-3-opus                                          |      ----- |      ----- |      ----- |      90.75|
+| vsegpt_chat openai/gpt-4o                                                    |      ----- |      ----- |      ----- |      90.06|
 | vsegpt_chat google/gemini-pro                                                |      ----- |      ----- |      ----- |      89.69|
 | multi_sources google_translate,deepl                                         |      89.66 |  **89.85** |       87.8 |      90.42|
 | multi_sources google_translate,deepl,vsegpt_chat*                            |      89.66 |  **89.85** |      87.76 |     90.67 |
@@ -87,9 +88,11 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | multi_sources google_translate,deepl,yandex_dev,vsegpt_chat*                 |      ----- |      ----- |      87.71 | 90.66     |
 | multi_sources deepl,yandex_dev,vsegpt_chat*                                  |      ----- |      ----- |      87.67 |   90.77   |
 | multi_sources deepl,yandex_dev,vsegpt_chat**                                 |      ----- |      ----- |      ----- | **91.02** |
+| multi_sources deepl,yandex_dev,vsegpt_chat***                                |      ----- |      ----- |      ----- | **91.05** |
 
 \* vsegpt_chat with anthropic/claude-2
 \** vsegpt_chat with anthropic/claude-3-opus
+\** vsegpt_chat:openai/gpt-4o,vsegpt_chat:anthropic/claude-3-opus
 
 **IMPORTANT:** You interested how it will work on YOUR language pairs? It's easy, script already included, see "Automatic BLEU measurement" chapter.
 
