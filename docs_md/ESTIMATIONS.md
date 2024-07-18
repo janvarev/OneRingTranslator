@@ -68,6 +68,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2 |      89.14 |      88.22 |      87.22 | 89.87     |
 | google_translate                                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                                        |      89.39 |      89.27 |  **87.93** | 89.82     |
+| vsegpt_chat openai/gpt-4o-mini                                               |      89.38 |      88.45 |      87.31 |      89.55|
 | vsegpt_chat anthropic/claude-instant-v1                                      |      ----- |      ----- |      85.73 | 88.13     |
 | vsegpt_chat openai/gpt-3.5-turbo                                             |      ----- |      ----- |      86.87 | 88.76     |
 | vsegpt_chat openai/gpt-3.5-turbo-instruct                                    |      ----- |      ----- | 85.23      | 87.46     |
