@@ -68,6 +68,12 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2 |      89.14 |      88.22 |      87.22 | 89.87     |
 | google_translate                                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                                        |      89.39 |      89.27 |  **87.93** | 89.82     |
+| vsegpt_chat google/gemma-2-27b-it                                            |      ----- |      ----- |      ----- |      89.07|
+| vsegpt_chat google/gemma-2-9b-it                                             |      ----- |      ----- |      ----- |      88.32|
+| vsegpt_chat meta-llama/llama-3.1-405b-instruct                               |      ----- |      ----- |      ----- |      89.72|
+| vsegpt_chat meta-llama/llama-3.1-70b-instruct                                |      ----- |      ----- |      ----- |      89.93|
+| vsegpt_chat meta-llama/llama-3.1-8b-instruct                                 |      ----- |      ----- |      ----- |      86.98|
+| vsegpt_chat meta-llama/llama-3-70b-instruct                                  |      ----- |      ----- |      ----- |      88.84|
 | vsegpt_chat openai/gpt-4o-mini                                               |      89.38 |      88.45 |      87.31 |      89.55|
 | vsegpt_chat anthropic/claude-instant-v1                                      |      ----- |      ----- |      85.73 | 88.13     |
 | vsegpt_chat openai/gpt-3.5-turbo                                             |      ----- |      ----- |      86.87 | 88.76     |
