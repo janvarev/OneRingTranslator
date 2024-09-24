@@ -66,6 +66,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat mistralai/mixtral-8x7b-instruct                                  |      88.45 |       87.2 |      86.94 | 87.85     |
 | vsegpt_chat lizpreciatior/lzlv-70b-fp16-hf                                   |      88.69 |      87.17 |      86.91 | 88.15     |
 | multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2 |      89.14 |      88.22 |      87.22 | 89.87     |
+| vsegpt_chat OMF-R-Vikhr-Nemo-12B-Instruct-R-21-09-24                         |      ----- |      ----- |      ----- |      87.93|
 | google_translate                                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                                        |      89.39 |      89.27 |  **87.93** | 89.82     |
 | vsegpt_chat google/gemma-2-27b-it                                            |      ----- |      ----- |      ----- |      89.07|
@@ -86,6 +87,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat openai/gpt-4o                                                    |      ----- |      ----- |      ----- | 90.06     |
 | vsegpt_chat cohere/command-r-plus                                            |      ----- |      ----- |      ----- | 89.45     |
 | vsegpt_chat qwen/qwen-2-72b-instruct                                         |      ----- |      ----- |      ----- | 89.38     |
+| vsegpt_chat qwen/qwen-2.5-72b-instruct                                       |      ----- |      ----- |      ----- |      87.85|
 | vsegpt_chat nvidia/nemotron-4-340b-instruct                                  |      ----- |      ----- |      ----- | 90.07     |
 | vsegpt_chat anthropic/claude-2                                               |      89.27 |      89.17 |      87.47 | 89.85     |
 | vsegpt_chat anthropic/claude-3-haiku                                         |      ----- |      ----- |      ----- | 89.5      |
