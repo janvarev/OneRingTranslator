@@ -95,8 +95,11 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat anthropic/claude-3-opus                                          |      ----- |      ----- |      ----- | 90.75     |
 | vsegpt_chat anthropic/claude-3.5-sonnet                                      |      ----- |      ----- |      ----- | 90.78     |
 | vsegpt_chat cot_anthropic/claude-3.5-sonnet                                  |      ----- |      ----- |      ----- |      89.94|
+| vsegpt_chat google/gemini-flash-1.5-8b                                       |      ----- |      ----- |      ----- | 88.34     |
 | vsegpt_chat google/gemini-flash-1.5                                          |      ----- |      ----- |      ----- | 89.27     |
 | vsegpt_chat google/gemini-pro                                                |      ----- |      ----- |      ----- | 89.69     |
+| vsegpt_chat google/gemini-flash-1.5 (002)                                    |      ----- |      ----- |      ----- | 89.57     |
+| vsegpt_chat google/gemini-pro-1.5 (002)                                      |      ----- |      ----- |      ----- | 89.55     |
 | multi_sources google_translate,deepl                                         |      89.66 |  **89.85** |       87.8 | 90.42     |
 | multi_sources google_translate,deepl,vsegpt_chat*                            |      89.66 |  **89.85** |      87.76 | 90.67     |
 | yandex_dev                                                                   |      ----- |      ----- |      87.34 | 90.27     |
