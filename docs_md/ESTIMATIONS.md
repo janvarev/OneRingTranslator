@@ -75,6 +75,8 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat meta-llama/llama-3.1-70b-instruct                                |      ----- |      ----- |      ----- |      89.93|
 | vsegpt_chat meta-llama/llama-3.1-8b-instruct                                 |      ----- |      ----- |      ----- |      86.98|
 | vsegpt_chat meta-llama/llama-3-70b-instruct                                  |      ----- |      ----- |      ----- |      88.84|
+| vsegpt_chat meta-llama/llama-3.3-70b-instruct                                |      ----- |      ----- |      ----- | 89.69     |
+| vsegpt_chat google/deepseek/deepseek-chat v3                                 |      ----- |      ----- |      ----- | 90.22     |
 | multi_sources google_translate,vsegpt_chat:meta-llama/llama-3.1-70b-instruct |      ----- |      ----- |      ----- |      90.35|
 | vsegpt_chat openai/gpt-4o-mini                                               |      89.38 |      88.45 |      87.31 |      89.55|
 | vsegpt_chat cot_openai/gpt-4o-mini                                           |      ----- |      ----- |      ----- |      88.93|
