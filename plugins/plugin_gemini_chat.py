@@ -38,7 +38,7 @@ def start_with_options(core: OneRingCore, manifest: dict):
 def init(core: OneRingCore):
     options = core.plugin_options(modname)
 
-    if options["apiKey"] == "" and options["apiBaseUrl"] == "":
+    if options["apiKey"] == "":
         raise ValueError("Needed API KEY for access")
 
     # Initialize any necessary configurations here
