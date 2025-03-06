@@ -64,6 +64,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | fb_nllb_translate nllb-200-distilled-1.3B                                    |      89.01 |      87.95 |      86.91 | 88.57     |
 | fb_nllb_ctranslate2 JustFrederik/nllb-200-3.3B-ct2-float16                   |      88.74 |      88.32 |      87.25 | 88.83     |
 | vsegpt_chat mistralai/mixtral-8x7b-instruct                                  |      88.45 |       87.2 |      86.94 | 87.85     |
+| vsegpt_chat mistralai/mistral-small-24b-instruct-2501                        |       89.1 |      88.81 |      87.28 |      88.83|
 | vsegpt_chat lizpreciatior/lzlv-70b-fp16-hf                                   |      88.69 |      87.17 |      86.91 | 88.15     |
 | multi_sources vsegpt_chat:lizpreciatior/lzlv-70b-fp16-hf,fb_nllb_ctranslate2 |      89.14 |      88.22 |      87.22 | 89.87     |
 | vsegpt_chat OMF-R-Vikhr-Nemo-12B-Instruct-R-21-09-24                         |      ----- |      ----- |      ----- |      87.93|
