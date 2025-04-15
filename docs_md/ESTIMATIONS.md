@@ -70,6 +70,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat OMF-R-Vikhr-Nemo-12B-Instruct-R-21-09-24                         |      ----- |      ----- |      ----- |      87.93|
 | google_translate                                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                                        |      89.39 |      89.27 |  **87.93** | 89.82     |
+| vsegpt_chat google/gemma-3-27b-it                                            | -----      | -----      | -----      |      89.51 |
 | vsegpt_chat google/gemma-2-27b-it                                            |      ----- |      ----- |      ----- |      89.07|
 | vsegpt_chat google/gemma-2-9b-it                                             |      ----- |      ----- |      ----- |      88.32|
 | vsegpt_chat meta-llama/llama-3.1-405b-instruct                               |      ----- |      ----- |      ----- |      89.72|
@@ -77,7 +78,10 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat meta-llama/llama-3.1-8b-instruct                                 |      ----- |      ----- |      ----- |      86.98|
 | vsegpt_chat meta-llama/llama-3-70b-instruct                                  |      ----- |      ----- |      ----- |      88.84|
 | vsegpt_chat meta-llama/llama-3.3-70b-instruct                                |      ----- |      ----- |      ----- | 89.69     |
-| vsegpt_chat google/deepseek/deepseek-chat v3                                 |      ----- |      ----- |      ----- | 90.22     |
+| vsegpt_chat meta-llama/llama-4-scout                                         | -----      | -----      | -----      |      89.17 |
+| vsegpt_chat meta-llama/llama-4-maverick                                      | -----      | -----      | -----      |      89.91 |
+| vsegpt_chat deepseek/deepseek-chat v3                                        |      ----- |      ----- |      ----- | 90.22     |
+| vsegpt_chat deepseek/deepseek-chat-0324-alt-fast                             | -----      | -----      | -----      |      90.04 |
 | multi_sources google_translate,vsegpt_chat:meta-llama/llama-3.1-70b-instruct |      ----- |      ----- |      ----- |      90.35|
 | vsegpt_chat openai/gpt-4o-mini                                               |      89.38 |      88.45 |      87.31 |      89.55|
 | vsegpt_chat cot_openai/gpt-4o-mini                                           |      ----- |      ----- |      ----- |      88.93|
@@ -88,6 +92,9 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat openai/gpt-4-1106-preview                                        |      ----- |      ----- |      ----- | 89.85     |
 | vsegpt_chat openai/gpt-4-turbo                                               |      ----- |      ----- |      ----- | 89.76     |
 | vsegpt_chat openai/gpt-4o                                                    |      ----- |      ----- |      ----- | 90.06     |
+| vsegpt_chat openai/gpt-4.1-nano                                              | -----      | -----      | -----      |      89.57 |
+| vsegpt_chat openai/gpt-4.1-mini                                              | -----      | -----      | -----      |      89.89 |
+| vsegpt_chat openai/gpt-4.1                                                   | -----      | -----      | -----      |      89.97 |
 | vsegpt_chat cohere/command-r-plus                                            |      ----- |      ----- |      ----- | 89.45     |
 | vsegpt_chat qwen/qwen-2-72b-instruct                                         |      ----- |      ----- |      ----- | 89.38     |
 | vsegpt_chat qwen/qwen-2.5-72b-instruct                                       |      ----- |      ----- |      ----- |      87.85|
