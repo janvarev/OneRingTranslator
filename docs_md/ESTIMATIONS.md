@@ -70,6 +70,7 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat OMF-R-Vikhr-Nemo-12B-Instruct-R-21-09-24                         |      ----- |      ----- |      ----- |      87.93|
 | google_translate                                                             |  **89.69** |      88.9  |      87.53 | 89.63     |
 | deepl                                                                        |      89.39 |      89.27 |  **87.93** | 89.82     |
+| vsegpt_chat google/gemini-2.5-flash-pre                                      | -----      | -----      | -----      |      88.41 |
 | vsegpt_chat google/gemma-3-27b-it                                            | -----      | -----      | -----      |      89.51 |
 | vsegpt_chat google/gemma-2-27b-it                                            |      ----- |      ----- |      ----- |      89.07|
 | vsegpt_chat google/gemma-2-9b-it                                             |      ----- |      ----- |      ----- |      88.32|
