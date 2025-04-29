@@ -99,6 +99,8 @@ Higher is better, no_translate2 can be used as baseline. Average on 100 examples
 | vsegpt_chat cohere/command-r-plus                                            |      ----- |      ----- |      ----- | 89.45     |
 | vsegpt_chat qwen/qwen-2-72b-instruct                                         |      ----- |      ----- |      ----- | 89.38     |
 | vsegpt_chat qwen/qwen-2.5-72b-instruct                                       |      ----- |      ----- |      ----- |      87.85|
+| vsegpt_chat qwen/qwen3-32b (no_think)                                        | -----      | -----      | -----      |      88.62 |
+| vsegpt_chat qwen/qwen3-235b (no_think)                                       | -----      | -----      | -----      |      89.25 |
 | vsegpt_chat nvidia/nemotron-4-340b-instruct                                  |      ----- |      ----- |      ----- | 90.07     |
 | vsegpt_chat anthropic/claude-2                                               |      89.27 |      89.17 |      87.47 | 89.85     |
 | vsegpt_chat anthropic/claude-3-haiku                                         |      ----- |      ----- |      ----- | 89.5      |
